@@ -1,2106 +1,2080 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="vi">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chiếc Nón Kỳ Diệu - Marketing Xã Hội</title>
-    <style>
-      /* ==========================================================================
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gameshow: Marketing Xã Hội - Chiếc Nón Kỳ Diệu</title>
+  <style>
+    /* ==========================================================================
        1. CẤU HÌNH GIAO DIỆN CHUNG & BIẾN MÀU SẮC (SÂN KHẤU TRÌNH CHIẾU)
        ========================================================================== */
-      *,
-      *::before,
-      *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        user-select: none;
-      }
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+    }
 
-      :root {
-        --bg-dark: #070d24;
-        --bg-card: rgba(14, 23, 58, 0.9);
-        --bg-card-hover: rgba(22, 35, 85, 0.95);
-        --border-card: rgba(64, 120, 255, 0.35);
-        --gold: #ffd700;
-        --gold-glow: rgba(255, 215, 0, 0.5);
-        --cyan: #00f0ff;
-        --cyan-glow: rgba(0, 240, 255, 0.45);
-        --green: #00e676;
-        --red: #ff1744;
-        --pink: #ff007f;
-        --text-main: #ffffff;
-        --text-muted: #94a3b8;
-        --font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      }
+    :root {
+      --bg-dark: #070d24;
+      --bg-card: rgba(13, 22, 56, 0.92);
+      --bg-card-hover: rgba(20, 34, 82, 0.95);
+      --border-card: rgba(64, 120, 255, 0.35);
+      --gold: #ffd700;
+      --gold-glow: rgba(255, 215, 0, 0.5);
+      --cyan: #00f0ff;
+      --cyan-glow: rgba(0, 240, 255, 0.45);
+      --green: #10b981;
+      --green-glow: rgba(16, 185, 129, 0.5);
+      --red: #ef4444;
+      --red-glow: rgba(239, 68, 68, 0.5);
+      --orange: #f59e0b;
+      --text-main: #ffffff;
+      --text-muted: #94a3b8;
+      --font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
 
-      body {
-        background: radial-gradient(circle at 50% 15%, #18275c 0%, #0d163d 50%, #05091c 100%);
-        color: var(--text-main);
-        font-family: var(--font-family);
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        overflow-x: hidden;
-        position: relative;
-      }
+    body {
+      background: radial-gradient(circle at 50% 15%, #18275c 0%, #0d163d 50%, #05091c 100%);
+      color: var(--text-main);
+      font-family: var(--font-family);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      position: relative;
+    }
 
-      /* Hiệu ứng ánh đèn Spotlight sân khấu gameshow */
-      body::before {
-        content: '';
-        position: fixed;
-        top: -25%;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 130vw;
-        height: 75vh;
-        background: radial-gradient(
-          ellipse at center,
-          rgba(0, 240, 255, 0.12) 0%,
-          rgba(255, 215, 0, 0.06) 40%,
-          transparent 75%
-        );
-        pointer-events: none;
-        z-index: 0;
-      }
+    /* Hiệu ứng ánh đèn Spotlight sân khấu gameshow */
+    body::before {
+      content: "";
+      position: fixed;
+      top: -25%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 130vw;
+      height: 75vh;
+      background: radial-gradient(ellipse at center, rgba(0, 240, 255, 0.12) 0%, rgba(255, 215, 0, 0.06) 40%, transparent 75%);
+      pointer-events: none;
+      z-index: 0;
+    }
 
-      .app-container {
-        position: relative;
-        z-index: 1;
-        width: 100%;
-        max-width: 1650px;
-        margin: 0 auto;
-        padding: 16px 24px;
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        flex: 1;
-      }
+    .app-container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 1650px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      flex: 1;
+    }
 
-      /* ==========================================================================
-       2. HEADER: TIÊU ĐỀ, ĐIỂM SỐ, SỐ THỨ TỰ & ĐIỀU HƯỚNG
+    /* ==========================================================================
+       2. HEADER: TIÊU ĐỀ, TỔNG ĐIỂM, RESET & ĐIỀU KHIỂN
        ========================================================================== */
-      .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        background: var(--bg-card);
-        border: 1px solid var(--border-card);
-        border-radius: 18px;
-        padding: 12px 24px;
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(14px);
-      }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 18px;
+      padding: 12px 24px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(14px);
+    }
 
-      .brand-section {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-      }
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
 
-      .brand-icon {
-        font-size: 2.2rem;
-        filter: drop-shadow(0 0 10px var(--gold));
-        animation: iconFloat 2.5s infinite ease-in-out;
-      }
+    .brand-icon {
+      font-size: 2.2rem;
+      filter: drop-shadow(0 0 10px var(--gold));
+      animation: iconFloat 2.5s infinite ease-in-out;
+    }
 
-      .brand-title {
-        font-size: 1.65rem;
-        font-weight: 900;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-        background: linear-gradient(135deg, #ffffff 0%, var(--gold) 55%, #ff8c00 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        text-shadow: 0 0 20px rgba(255, 215, 0, 0.35);
-      }
+    @keyframes iconFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
 
-      .brand-subtitle {
-        font-size: 0.82rem;
-        color: var(--cyan);
-        letter-spacing: 2px;
-        font-weight: 700;
-        text-transform: uppercase;
-      }
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
 
-      .header-center-info {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-      }
+    .brand-title {
+      font-size: 1.65rem;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      background: linear-gradient(135deg, #ffffff 0%, var(--gold) 55%, #ff8c00 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(255, 215, 0, 0.35);
+    }
 
-      .score-badge {
-        background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 140, 0, 0.1));
-        border: 2px solid var(--gold);
-        padding: 6px 20px;
-        border-radius: 30px;
-        font-size: 1.15rem;
-        font-weight: 800;
-        color: #fff;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-      }
+    .brand-subtitle {
+      font-size: 0.82rem;
+      color: var(--cyan);
+      letter-spacing: 2px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
 
-      .score-badge span.num {
-        color: var(--gold);
-        font-size: 1.45rem;
-        font-variant-numeric: tabular-nums;
-        transition: transform 0.2s;
-      }
+    .header-center-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
 
-      .score-badge span.num.bump {
-        transform: scale(1.3);
-        color: var(--green);
-      }
+    /* Bảng Tổng Điểm */
+    .score-badge {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.15), rgba(255, 140, 0, 0.1));
+      border: 2px solid var(--gold);
+      padding: 8px 24px;
+      border-radius: 30px;
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    }
 
-      .q-counter-badge {
-        background: linear-gradient(90deg, #ff007f, #7928ca);
-        color: #fff;
-        font-size: 0.95rem;
-        font-weight: 800;
-        padding: 6px 16px;
-        border-radius: 20px;
-        letter-spacing: 1px;
-        box-shadow: 0 0 15px rgba(255, 0, 127, 0.5);
-      }
+    .score-badge span.num {
+      color: var(--gold);
+      font-size: 1.6rem;
+      font-variant-numeric: tabular-nums;
+      transition: transform 0.2s;
+    }
 
-      .header-nav {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
+    .score-badge span.num.bump {
+      transform: scale(1.35);
+      color: var(--green);
+      text-shadow: 0 0 15px var(--green);
+    }
 
-      .btn-nav {
-        background: rgba(255, 255, 255, 0.08);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        color: #fff;
-        padding: 8px 16px;
-        border-radius: 10px;
-        font-size: 0.95rem;
-        font-weight: 700;
-        cursor: pointer;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        transition: all 0.2s ease;
-      }
+    /* Bộ đếm câu hỏi */
+    .q-counter-badge {
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 800;
+      padding: 8px 18px;
+      border-radius: 20px;
+      letter-spacing: 1px;
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+    }
 
-      .btn-nav:hover:not(:disabled) {
-        background: rgba(255, 255, 255, 0.2);
-        border-color: var(--cyan);
-        box-shadow: 0 0 12px var(--cyan-glow);
-        transform: translateY(-2px);
-      }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-      .btn-nav:disabled {
-        opacity: 0.35;
-        cursor: not-allowed;
-      }
+    .btn-tool {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
 
-      .btn-nav.primary {
-        background: linear-gradient(135deg, #00c6ff, #0072ff);
-        border: none;
-        box-shadow: 0 4px 15px rgba(0, 114, 255, 0.4);
-      }
+    .btn-tool:hover {
+      background: rgba(255, 255, 255, 0.2);
+      border-color: var(--cyan);
+      box-shadow: 0 0 12px var(--cyan-glow);
+      transform: translateY(-2px);
+    }
 
-      .btn-nav.primary:hover:not(:disabled) {
-        background: linear-gradient(135deg, #1ad0ff, #1a82ff);
-        box-shadow: 0 6px 20px rgba(0, 114, 255, 0.6);
-      }
+    .btn-tool.danger {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+    }
 
-      /* ==========================================================================
-       3. BỐ CỤC CHÍNH 2 CỘT (VÒNG QUAY - KHUNG NỘI DUNG)
+    .btn-tool.danger:hover {
+      background: rgba(239, 68, 68, 0.35);
+      border-color: var(--red);
+      box-shadow: 0 0 15px var(--red-glow);
+    }
+
+    /* ==========================================================================
+       3. BỐ CỤC CHÍNH 2 CỘT: VÒNG QUAY (TRÁI) & KHUNG CÂU HỎI (PHẢI)
        ========================================================================== */
+    .main-grid {
+      display: grid;
+      grid-template-columns: 530px 1fr;
+      gap: 24px;
+      flex: 1;
+    }
+
+    @media (max-width: 1200px) {
       .main-grid {
-        display: grid;
-        grid-template-columns: 460px 1fr;
-        gap: 20px;
-        flex: 1;
+        grid-template-columns: 1fr;
       }
+    }
 
-      @media (max-width: 1200px) {
-        .main-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-
-      /* --------------------------------------------------------------------------
-       CỘT TRÁI: VÒNG QUAY MAY MẮN VỚI HIỆU ỨNG VIỀN BLING BLING
+    /* --------------------------------------------------------------------------
+       CỘT TRÁI: VÒNG QUAY MAY MẮN CANVAS CỠ LỚN VỚI VIỀN BLING-BLING
        -------------------------------------------------------------------------- */
-      .wheel-panel {
-        background: var(--bg-card);
-        border: 1px solid var(--border-card);
-        border-radius: 22px;
-        padding: 24px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5);
-        position: relative;
-      }
+    .wheel-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 22px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
 
-      /* Khung nón với VIỀN NGOÀI BLING BLING XOAY ÁNH SÁNG CẦU VỒNG KIM CƯƠNG */
-      .wheel-outer-wrapper {
-        position: relative;
-        width: 400px;
-        height: 400px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-      }
+    .wheel-outer-box {
+      position: relative;
+      width: 470px;
+      height: 470px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-      /* 1. Dải hào quang Bling Bling chạy xoay 360 độ viền ngoài nón */
-      .wheel-outer-wrapper::before {
-        content: '';
-        position: absolute;
-        inset: -12px;
-        border-radius: 50%;
-        background: conic-gradient(
-          from 0deg,
-          #ffd700 0deg,
-          #ff007f 60deg,
-          #00f0ff 120deg,
-          #00e676 180deg,
-          #ffd700 240deg,
-          #ff9100 300deg,
-          #ffd700 360deg
-        );
-        animation: wheelBlingRotate 4s linear infinite;
-        z-index: 1;
-        filter: drop-shadow(0 0 16px rgba(255, 215, 0, 0.95))
-          drop-shadow(0 0 24px rgba(0, 240, 255, 0.7));
+    @media (max-width: 580px) {
+      .wheel-outer-box {
+        width: 340px;
+        height: 340px;
       }
+    }
 
-      /* 2. Ánh hào quang tỏa sáng lấp lánh (Aura Glow) bao quanh viền */
-      .wheel-outer-wrapper::after {
-        content: '';
-        position: absolute;
-        inset: -20px;
-        border-radius: 50%;
-        background: conic-gradient(from 180deg, #ffd700, #ff007f, #00f0ff, #00e676, #ffd700);
-        animation: wheelBlingRotate 4s linear infinite;
-        z-index: 0;
-        filter: blur(20px);
-        opacity: 0.85;
-      }
+    /* Vòng tròn hào quang Bling Bling xoay 360 độ quanh nón */
+    .wheel-outer-box::before {
+      content: "";
+      position: absolute;
+      inset: -12px;
+      border-radius: 50%;
+      background: conic-gradient(
+        #ffd700 0deg,
+        #ff007f 60deg,
+        #00f0ff 120deg,
+        #00e676 180deg,
+        #ffd700 240deg,
+        #ff9100 300deg,
+        #ffd700 360deg
+      );
+      animation: rotateHalo 6s linear infinite;
+      z-index: 1;
+      opacity: 0.9;
+      filter: drop-shadow(0 0 18px rgba(255, 215, 0, 0.7));
+    }
 
-      @keyframes wheelBlingRotate {
-        from {
-          transform: rotate(0deg);
-        }
-        to {
-          transform: rotate(360deg);
-        }
-      }
+    /* Lớp ánh sáng tán xạ phía sau viền nón */
+    .wheel-outer-box::after {
+      content: "";
+      position: absolute;
+      inset: -18px;
+      border-radius: 50%;
+      background: conic-gradient(
+        #ffd700, #ff007f, #00f0ff, #00e676, #ffd700
+      );
+      animation: rotateHalo 6s linear infinite;
+      z-index: 0;
+      filter: blur(20px);
+      opacity: 0.6;
+    }
 
-      /* Các hạt sao lấp lánh gắn quanh viền nón */
-      .wheel-sparkle {
-        position: absolute;
-        font-size: 1.5rem;
-        pointer-events: none;
-        z-index: 12;
-        animation: wheelSparkleTwinkle 2.2s infinite ease-in-out;
-        filter: drop-shadow(0 0 8px #ffd700);
-        line-height: 1;
-      }
+    @keyframes rotateHalo {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
 
-      .wheel-sparkle.ws-1 {
-        top: 12px;
-        left: 20px;
-        animation-delay: 0s;
-      }
-      .wheel-sparkle.ws-2 {
-        top: 12px;
-        right: 20px;
-        animation-delay: 0.55s;
-      }
-      .wheel-sparkle.ws-3 {
-        bottom: 16px;
-        left: 24px;
-        animation-delay: 1.1s;
-      }
-      .wheel-sparkle.ws-4 {
-        bottom: 16px;
-        right: 24px;
-        animation-delay: 1.65s;
-      }
-      .wheel-sparkle.ws-5 {
-        top: 50%;
-        left: -22px;
-        transform: translateY(-50%);
-        animation-delay: 0.8s;
-        font-size: 1.35rem;
-      }
-      .wheel-sparkle.ws-6 {
-        top: 50%;
-        right: -22px;
-        transform: translateY(-50%);
-        animation-delay: 1.4s;
-        font-size: 1.35rem;
-      }
+    /* Các hạt lấp lánh (Sparkle Stars) viền ngoài nón */
+    .wheel-sparkle {
+      position: absolute;
+      font-size: 1.6rem;
+      pointer-events: none;
+      z-index: 15;
+      animation: starTwinkle 2s infinite ease-in-out;
+      filter: drop-shadow(0 0 8px #ffd700);
+      line-height: 1;
+    }
 
-      @keyframes wheelSparkleTwinkle {
-        0%,
-        100% {
-          opacity: 0.25;
-          transform: scale(0.65) rotate(0deg);
-        }
-        50% {
-          opacity: 1;
-          transform: scale(1.4) rotate(90deg);
-          filter: drop-shadow(0 0 14px #ffd700) drop-shadow(0 0 22px #00f0ff);
-        }
-      }
+    .ws-top-left { top: -6px; left: 18px; animation-delay: 0s; }
+    .ws-top-right { top: -6px; right: 18px; animation-delay: 0.4s; }
+    .ws-bottom-left { bottom: -6px; left: 18px; animation-delay: 0.8s; }
+    .ws-bottom-right { bottom: -6px; right: 18px; animation-delay: 1.2s; }
+    .ws-left { top: 50%; left: -14px; transform: translateY(-50%); animation-delay: 1.6s; }
+    .ws-right { top: 50%; right: -14px; transform: translateY(-50%); animation-delay: 2s; }
 
-      #wheelCanvas {
-        position: relative;
-        z-index: 2;
-        width: 100%;
-        height: 100%;
-        border-radius: 50%;
-        box-shadow:
-          0 0 40px rgba(0, 0, 0, 0.9),
-          0 0 25px rgba(255, 215, 0, 0.6);
-      }
+    @keyframes starTwinkle {
+      0%, 100% { opacity: 0.25; transform: scale(0.65) rotate(0deg); }
+      50% { opacity: 1; transform: scale(1.3) rotate(90deg); filter: drop-shadow(0 0 12px #ffd700) drop-shadow(0 0 20px #00f0ff); }
+    }
 
-      /* Kim chỉ nón (Pointer) ở góc 12h */
-      .wheel-pointer {
-        position: absolute;
-        top: -20px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 42px;
-        height: 52px;
-        z-index: 15;
-        filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.8)) drop-shadow(0 0 8px #ffd700);
-        transition: transform 0.08s ease-out;
-        transform-origin: 50% 10%;
-      }
+    #wheelCanvas {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      box-shadow: 0 0 35px rgba(0, 0, 0, 0.85);
+      background: #090e24;
+    }
 
-      .wheel-pointer.kick {
-        transform: translateX(-50%) rotate(-18deg);
-      }
+    /* Kim chỉ vị trí ở đỉnh nón (12h) */
+    .wheel-pointer {
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 44px;
+      height: 56px;
+      z-index: 20;
+      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.8));
+      transition: transform 0.08s ease-out;
+      transform-origin: 50% 12%;
+    }
 
-      .wheel-pointer svg {
-        width: 100%;
-        height: 100%;
-      }
+    .wheel-pointer.kick {
+      transform: translateX(-50%) rotate(-20deg);
+    }
 
-      /* Nắp tâm kim loại */
-      .wheel-center-cap {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 72px;
-        height: 72px;
-        border-radius: 50%;
-        background: radial-gradient(circle, #ffe259 0%, #ffa751 100%);
-        border: 4px solid #fff;
-        box-shadow:
-          0 0 25px rgba(255, 215, 0, 0.8),
-          inset 0 0 10px rgba(255, 255, 255, 0.8);
-        z-index: 6;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.6rem;
-        pointer-events: none;
-        animation: centerPulse 2.5s infinite alternate ease-in-out;
-      }
+    .wheel-pointer svg {
+      width: 100%;
+      height: 100%;
+    }
 
-      @keyframes centerPulse {
-        0% {
-          box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
-        }
-        100% {
-          box-shadow:
-            0 0 35px rgba(255, 215, 0, 1),
-            0 0 15px #fff;
-        }
-      }
+    /* Nắp tâm trục nón mạ vàng */
+    .wheel-hub {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 74px;
+      height: 74px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ffe259 0%, #ffa751 100%);
+      border: 4px solid #ffffff;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.7), inset 0 0 12px rgba(255, 255, 255, 0.9);
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      pointer-events: none;
+      animation: hubGlow 2.5s infinite alternate;
+    }
 
-      /* Nút QUAY NÓN */
-      .spin-btn-container {
-        margin-top: 24px;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 12px;
-      }
+    @keyframes hubGlow {
+      0% { box-shadow: 0 0 15px rgba(255, 215, 0, 0.5); }
+      100% { box-shadow: 0 0 30px rgba(255, 215, 0, 1), 0 0 15px #fff; }
+    }
 
-      .btn-spin {
-        background: linear-gradient(135deg, #ff0844 0%, #ffb199 100%);
-        border: none;
-        color: #fff;
-        font-size: 1.45rem;
-        font-weight: 900;
-        letter-spacing: 2px;
-        padding: 15px 48px;
-        border-radius: 40px;
-        cursor: pointer;
-        box-shadow:
-          0 8px 30px rgba(255, 8, 68, 0.5),
-          inset 0 2px 4px rgba(255, 255, 255, 0.4);
-        transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        text-transform: uppercase;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        position: relative;
-        overflow: hidden;
-      }
+    /* Khu vực nút QUAY NÓN & Banner trạng thái */
+    .wheel-controls {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      z-index: 5;
+    }
 
-      .btn-spin::after {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
-        background: linear-gradient(60deg, transparent, rgba(255, 255, 255, 0.35), transparent);
-        transform: rotate(30deg);
-        animation: shine 3s infinite linear;
-      }
+    .btn-spin {
+      background: linear-gradient(135deg, #ff0844 0%, #ffb199 100%);
+      border: none;
+      color: #fff;
+      font-size: 1.55rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      padding: 16px 54px;
+      border-radius: 40px;
+      cursor: pointer;
+      box-shadow: 0 8px 30px rgba(255, 8, 68, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.4);
+      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: relative;
+      overflow: hidden;
+    }
 
-      .btn-spin:hover:not(:disabled) {
-        transform: scale(1.05) translateY(-2px);
-        box-shadow: 0 12px 35px rgba(255, 8, 68, 0.7);
-      }
+    .btn-spin::after {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(60deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transform: rotate(30deg);
+      animation: btnShine 3s infinite;
+    }
 
-      .btn-spin:active:not(:disabled) {
-        transform: scale(0.98);
-      }
+    @keyframes btnShine {
+      0% { transform: translateX(-100%) rotate(30deg); }
+      20%, 100% { transform: translateX(100%) rotate(30deg); }
+    }
 
-      .btn-spin:disabled {
-        background: linear-gradient(135deg, #475569, #334155);
-        color: #94a3b8;
-        box-shadow: none;
-        cursor: not-allowed;
-        opacity: 0.65;
-      }
+    .btn-spin:hover:not(:disabled) {
+      transform: scale(1.05);
+      box-shadow: 0 12px 35px rgba(255, 8, 68, 0.7), inset 0 2px 6px rgba(255, 255, 255, 0.6);
+    }
 
-      .spin-status-banner {
-        font-size: 1.05rem;
-        font-weight: 700;
-        text-align: center;
-        color: var(--cyan);
-        min-height: 26px;
-        transition: color 0.3s;
-      }
+    .btn-spin:active:not(:disabled) {
+      transform: scale(0.97);
+    }
 
-      .spin-status-banner.highlight {
-        color: var(--gold);
-        text-shadow: 0 0 12px rgba(255, 215, 0, 0.6);
-      }
+    .btn-spin:disabled {
+      background: linear-gradient(135deg, #4b5563, #374151);
+      box-shadow: none;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
 
-      /* --------------------------------------------------------------------------
-       CỘT PHẢI: KHUNG HIỂN THỊ CÂU HỎI VÀ VÙNG GIẢI ĐỐ HYBRID
+    .btn-spin:disabled::after {
+      display: none;
+    }
+
+    /* Banner thông báo trạng thái vòng quay */
+    .spin-status-banner {
+      width: 100%;
+      text-align: center;
+      background: rgba(10, 16, 42, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #e2e8f0;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+
+    .spin-status-banner.highlight {
+      background: rgba(255, 215, 0, 0.15);
+      border-color: var(--gold);
+      color: var(--gold);
+      text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    }
+
+    .spin-status-banner.lose {
+      background: rgba(239, 68, 68, 0.2);
+      border-color: var(--red);
+      color: #ff8585;
+      text-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+    }
+
+    /* --------------------------------------------------------------------------
+       CỘT PHẢI: KHUNG HIỂN THỊ CÂU HỎI & VÙNG GIẢI ĐỐ
        -------------------------------------------------------------------------- */
-      .content-panel {
-        background: var(--bg-card);
-        border: 1px solid var(--border-card);
-        border-radius: 22px;
-        padding: 24px 28px;
-        display: flex;
-        flex-direction: column;
-        gap: 18px;
-        box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5);
-        position: relative;
-      }
+    .content-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      border-radius: 22px;
+      padding: 26px 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.5);
+      position: relative;
+      min-height: 580px;
+    }
 
-      /* Thẻ thể loại & chế độ câu hỏi */
-      .question-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 10px;
-      }
+    /* 1. MÀN HÌNH CHỜ (IDLE CARD) KHI CHƯA QUAY */
+    .idle-card {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 30px;
+      background: rgba(10, 16, 42, 0.6);
+      border: 2px dashed rgba(64, 120, 255, 0.35);
+      border-radius: 18px;
+      gap: 16px;
+    }
 
-      .category-badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        padding: 6px 18px;
-        border-radius: 30px;
-        font-size: 0.95rem;
-        font-weight: 800;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        transition: all 0.3s ease;
-      }
+    .idle-icon {
+      font-size: 4.5rem;
+      filter: drop-shadow(0 0 20px var(--gold));
+      animation: iconFloat 3s infinite ease-in-out;
+    }
 
-      /* Mức độ 1: ĐỎ LÀ DỄ (Câu 1 - 6) */
-      .category-badge.diff-easy {
-        background: rgba(239, 68, 68, 0.22);
-        border: 1.5px solid #ef4444;
-        color: #ff9999;
-        box-shadow: 0 0 18px rgba(239, 68, 68, 0.45);
-      }
+    .idle-title {
+      font-size: 1.85rem;
+      font-weight: 900;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
 
-      /* Mức độ 2: XANH LÀ BÌNH THƯỜNG (Câu 7 - 11) */
-      .category-badge.diff-medium {
-        background: rgba(16, 185, 129, 0.22);
-        border: 1.5px solid #10b981;
-        color: #6ee7b7;
-        box-shadow: 0 0 18px rgba(16, 185, 129, 0.45);
-      }
+    .idle-desc {
+      font-size: 1.15rem;
+      color: var(--text-muted);
+      max-width: 620px;
+      line-height: 1.6;
+    }
 
-      /* Mức độ 3: TÌNH HUỐNG LÀ KHÓ (Câu 12 - 16) */
-      .category-badge.diff-hard {
-        background: rgba(245, 158, 11, 0.22);
-        border: 1.5px solid #f59e0b;
-        color: #fde047;
-        box-shadow: 0 0 18px rgba(245, 158, 11, 0.45);
-      }
+    .idle-tiers-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 10px;
+    }
 
-      /* Thanh chú giải độ khó hiển thị trực quan */
-      .difficulty-legend {
-        display: inline-flex;
-        align-items: center;
-        gap: 10px;
-        font-size: 0.82rem;
-        font-weight: 700;
-        color: var(--text-muted);
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        padding: 5px 14px;
-        border-radius: 20px;
-      }
+    .idle-tier-chip {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
 
-      .diff-item {
-        display: inline-flex;
-        align-items: center;
-        gap: 4px;
-      }
-      .diff-item.easy {
-        color: #ff8585;
-      }
-      .diff-item.medium {
-        color: #6ee7b7;
-      }
-      .diff-item.hard {
-        color: #fde047;
-      }
+    /* 2. THẺ CÂU HỎI ĐANG HOẠT ĐỘNG (ACTIVE QUESTION CARD) */
+    .active-card {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      animation: fadeIn 0.4s ease-out;
+    }
 
-      .mode-indicator {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        font-size: 0.85rem;
-        font-weight: 700;
-        color: var(--gold);
-        background: rgba(255, 215, 0, 0.1);
-        border: 1px solid rgba(255, 215, 0, 0.3);
-        padding: 4px 14px;
-        border-radius: 20px;
-      }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-      /* Hộp câu hỏi / đề bài với viền đổi màu động */
-      .question-box {
-        background: rgba(10, 16, 42, 0.85);
-        border-left: 6px solid #ef4444;
-        border-radius: 12px;
-        padding: 18px 22px;
-        font-size: 1.28rem;
-        font-weight: 700;
-        line-height: 1.5;
-        color: #ffffff;
-        box-shadow:
-          inset 0 2px 6px rgba(0, 0, 0, 0.4),
-          -4px 0 18px rgba(239, 68, 68, 0.4);
-        transition:
-          border-left-color 0.3s ease,
-          box-shadow 0.3s ease;
-      }
+    .question-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 14px;
+    }
 
-      /* --------------------------------------------------------------------------
-       LOẠI 1: Ô CHỮ TRUYỀN THỐNG (CLASSIC MODE)
-       -------------------------------------------------------------------------- */
-      .classic-board-area {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        flex: 1;
-        justify-content: center;
-      }
+    .category-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 18px;
+      border-radius: 30px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
 
-      .word-board {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 12px 16px;
-        padding: 12px;
-        min-height: 110px;
-        align-items: center;
-      }
+    .category-badge.tier-1 {
+      background: rgba(239, 68, 68, 0.2);
+      border: 1.5px solid var(--red);
+      color: #ff9999;
+      box-shadow: 0 0 15px rgba(239, 68, 68, 0.4);
+    }
 
-      .word-group {
-        display: inline-flex;
-        gap: 8px;
-        margin: 4px 6px;
-      }
+    .category-badge.tier-2 {
+      background: rgba(16, 185, 129, 0.2);
+      border: 1.5px solid var(--green);
+      color: #6ee7b7;
+      box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+    }
 
-      /* Ô chữ 3D Flip Card - Căn chuẩn tọa độ không xê dịch */
-      .tile {
-        width: 58px;
-        height: 68px;
-        perspective: 1000px;
-        -webkit-perspective: 1000px;
-        display: inline-block;
-        position: relative;
-      }
+    .category-badge.tier-3 {
+      background: rgba(245, 158, 11, 0.2);
+      border: 1.5px solid var(--orange);
+      color: #fde047;
+      box-shadow: 0 0 15px rgba(245, 158, 11, 0.4);
+    }
 
-      .tile-inner {
-        width: 100%;
-        height: 100%;
-        position: relative;
-        transform-style: preserve-3d;
-        -webkit-transform-style: preserve-3d;
-        transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
-      }
+    .points-reward-badge {
+      background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 140, 0, 0.15));
+      border: 1.5px solid var(--gold);
+      color: var(--gold);
+      padding: 6px 18px;
+      border-radius: 30px;
+      font-size: 1.1rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.35);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-      .tile.revealed .tile-inner {
-        transform: rotateY(180deg);
-        -webkit-transform: rotateY(180deg);
-      }
+    /* Hộp câu hỏi / đề bài */
+    .question-box {
+      background: rgba(10, 16, 42, 0.85);
+      border-left: 6px solid var(--gold);
+      border-radius: 14px;
+      padding: 22px 24px;
+      font-size: 1.35rem;
+      font-weight: 700;
+      line-height: 1.6;
+      color: #ffffff;
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4), -4px 0 18px rgba(255, 215, 0, 0.35);
+      transition: all 0.3s ease;
+    }
 
-      .tile-face {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        -webkit-backface-visibility: hidden;
-        backface-visibility: hidden;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 2.2rem;
-        font-weight: 900;
-      }
+    /* Khu vực Đáp án */
+    .answer-section {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
 
-      /* Mặt trước ẩn (xanh navy đậm dấu ?) */
-      .tile-front {
-        background: linear-gradient(145deg, #1e295d, #141d44);
-        border: 2px solid rgba(100, 160, 255, 0.4);
-        box-shadow:
-          inset 0 2px 4px rgba(255, 255, 255, 0.15),
-          0 6px 12px rgba(0, 0, 0, 0.4);
-        transform: rotateY(0deg);
-        -webkit-transform: rotateY(0deg);
-        z-index: 2;
-      }
+    .btn-toggle-answer {
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      border: 1px solid rgba(96, 165, 250, 0.4);
+      color: #fff;
+      font-size: 1.1rem;
+      font-weight: 800;
+      padding: 12px 28px;
+      border-radius: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      align-self: flex-start;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 15px rgba(37, 99, 235, 0.35);
+    }
 
-      .tile-front::after {
-        content: '?';
-        color: rgba(255, 255, 255, 0.28);
-        font-size: 1.6rem;
-        font-weight: bold;
-      }
+    .btn-toggle-answer:hover {
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      border-color: var(--cyan);
+      box-shadow: 0 6px 20px rgba(0, 240, 255, 0.5);
+      transform: translateY(-2px);
+    }
 
-      /* Mặt sau đã mở (màu trắng viền đen/vàng) */
-      .tile-back {
-        background: linear-gradient(145deg, #ffffff, #f0f4f8);
-        color: #0c1538;
-        border: 2px solid var(--gold);
-        transform: rotateY(180deg);
-        -webkit-transform: rotateY(180deg);
-        box-shadow:
-          0 0 20px var(--gold-glow),
-          inset 0 2px 4px rgba(255, 255, 255, 0.8),
-          0 6px 14px rgba(0, 0, 0, 0.5);
-        z-index: 1;
-      }
+    .answer-card {
+      background: linear-gradient(145deg, rgba(6, 44, 30, 0.95), rgba(10, 28, 48, 0.95));
+      border: 2px solid var(--green);
+      border-radius: 14px;
+      padding: 20px 24px;
+      box-shadow: 0 0 25px rgba(16, 185, 129, 0.35), inset 0 2px 6px rgba(255, 255, 255, 0.1);
+      display: none;
+      animation: slideDown 0.35s ease-out;
+    }
 
-      /* Ký tự đặc biệt (dấu gạch nối, dấu cách, phẩy) */
-      .tile.special .tile-front {
-        background: rgba(255, 255, 255, 0.1);
-        border-color: rgba(255, 255, 255, 0.2);
-      }
-      .tile.special .tile-front::after {
-        display: none;
-      }
+    .answer-card.revealed {
+      display: block;
+    }
 
-      /* Bàn phím chữ cái tiếng Việt */
-      .keyboard-box {
-        background: rgba(10, 16, 42, 0.7);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 16px;
-        padding: 16px;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-      .keyboard-title-bar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-size: 0.85rem;
-        color: var(--text-muted);
-        text-transform: uppercase;
-        font-weight: 700;
-        letter-spacing: 1px;
-      }
+    .answer-label {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
 
-      .keyboard-grid {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 8px;
-      }
+    .answer-content {
+      font-size: 1.25rem;
+      font-weight: 800;
+      line-height: 1.6;
+      color: #ffffff;
+      white-space: pre-line;
+      text-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+    }
 
-      .key-btn {
-        background: linear-gradient(180deg, #2b3970, #1a254d);
-        border: 1px solid rgba(120, 160, 255, 0.35);
-        color: #fff;
-        font-size: 1.3rem;
-        font-weight: 800;
-        width: 48px;
-        height: 50px;
-        border-radius: 10px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow:
-          0 4px 10px rgba(0, 0, 0, 0.3),
-          inset 0 1px 2px rgba(255, 255, 255, 0.2);
-        transition: all 0.15s ease;
-      }
+    /* Thanh chấm điểm nhanh cho người thuyết trình */
+    .presenter-scoring-box {
+      background: rgba(10, 16, 42, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 6px;
+    }
 
-      .key-btn:hover:not(:disabled) {
-        background: linear-gradient(180deg, #3f529e, #2b3970);
-        border-color: var(--cyan);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 16px var(--cyan-glow);
-      }
+    .scoring-box-title {
+      font-size: 0.88rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
 
-      .key-btn.ready {
-        animation: keyPulse 1.5s infinite ease-in-out;
-        border-color: var(--gold);
-      }
+    .scoring-btns-row {
+      display: flex;
+      gap: 16px;
+    }
 
-      @keyframes keyPulse {
-        0%,
-        100% {
-          box-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
-        }
-        50% {
-          box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
-        }
-      }
+    .btn-score {
+      flex: 1;
+      padding: 14px 24px;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
 
-      .key-btn.correct {
-        background: linear-gradient(180deg, #00c853, #007e33) !important;
-        border-color: #b9f6ca !important;
-        color: #fff !important;
-        cursor: not-allowed;
-        box-shadow: 0 0 12px rgba(0, 200, 83, 0.5);
-      }
+    .btn-score.correct {
+      background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.45);
+    }
 
-      .key-btn.wrong {
-        background: linear-gradient(180deg, #374151, #1f2937) !important;
-        border-color: rgba(255, 255, 255, 0.1) !important;
-        color: #6b7280 !important;
-        cursor: not-allowed;
-        text-decoration: line-through;
-      }
+    .btn-score.correct:hover {
+      background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+      box-shadow: 0 8px 25px rgba(16, 185, 129, 0.7);
+      transform: translateY(-2px);
+    }
 
-      .key-btn:disabled:not(.correct):not(.wrong) {
-        opacity: 0.4;
-        cursor: not-allowed;
-        background: #182042;
-      }
+    .btn-score.wrong {
+      background: linear-gradient(135deg, #b91c1c 0%, #ef4444 100%);
+      box-shadow: 0 6px 20px rgba(239, 68, 68, 0.45);
+    }
 
-      /* --------------------------------------------------------------------------
-       LOẠI 2: ĐIỀN KHUYẾT ĐOẠN VĂN (FILL BLANK MODE)
-       -------------------------------------------------------------------------- */
-      .fill-blank-area {
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        flex: 1;
-      }
+    .btn-score.wrong:hover {
+      background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+      box-shadow: 0 8px 25px rgba(239, 68, 68, 0.7);
+      transform: translateY(-2px);
+    }
 
-      .template-card {
-        background: rgba(10, 16, 42, 0.7);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        border-radius: 16px;
-        padding: 24px;
-        font-size: 1.32rem;
-        line-height: 2.1;
-        color: #e2e8f0;
-        white-space: pre-wrap;
-        box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.4);
-        flex: 1;
-      }
+    /* 3. THẺ MẤT LƯỢT (LOSE TURN CARD) */
+    .lose-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px;
+      background: rgba(239, 68, 68, 0.1);
+      border: 2px solid var(--red);
+      border-radius: 18px;
+      gap: 16px;
+      animation: fadeIn 0.3s ease;
+    }
 
-      /* Nút bấm ô điền khuyết */
-      .blank-slot {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 4px 18px;
-        margin: 2px 6px;
-        border-radius: 8px;
-        font-weight: 800;
-        cursor: pointer;
-        transition: all 0.25s ease;
-        vertical-align: middle;
-        line-height: 1.4;
-      }
+    .lose-icon {
+      font-size: 4rem;
+      filter: drop-shadow(0 0 20px var(--red));
+    }
 
-      /* Ô khi chưa lật mở */
-      .blank-slot.hidden-slot {
-        background: linear-gradient(135deg, #1e295d, #0f1738);
-        border: 2px dashed var(--gold);
-        color: var(--gold);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-        animation: blankPulse 2.5s infinite ease-in-out;
-      }
+    .lose-title {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--red);
+      letter-spacing: 1px;
+    }
 
-      .blank-slot.hidden-slot:hover {
-        background: linear-gradient(135deg, #2b3a7a, #162252);
-        border-color: var(--cyan);
-        color: #fff;
-        transform: translateY(-2px) scale(1.03);
-        box-shadow: 0 0 18px var(--cyan-glow);
-      }
+    .lose-desc {
+      font-size: 1.15rem;
+      color: #fca5a5;
+      max-width: 520px;
+    }
 
-      @keyframes blankPulse {
-        0%,
-        100% {
-          box-shadow: 0 0 6px rgba(255, 215, 0, 0.3);
-        }
-        50% {
-          box-shadow: 0 0 16px rgba(255, 215, 0, 0.7);
-        }
-      }
+    /* 4. THANH TIẾN ĐỘ & TRACKER 14 CÂU HỎI */
+    .tracker-section {
+      margin-top: auto;
+      background: rgba(10, 16, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 12px 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
 
-      /* Ô sau khi đã lật mở đáp án */
-      .blank-slot.revealed-slot {
-        background: linear-gradient(135deg, #ffffff, #f1f5f9);
-        color: #0c1538;
-        border: 2px solid var(--green);
-        box-shadow:
-          0 0 18px rgba(0, 230, 118, 0.5),
-          inset 0 1px 3px rgba(255, 255, 255, 0.9);
-        cursor: default;
-        animation: slotReveal 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      }
+    .tracker-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
 
-      @keyframes slotReveal {
-        0% {
-          transform: scale(0.85);
-          opacity: 0;
-        }
-        100% {
-          transform: scale(1);
-          opacity: 1;
-        }
-      }
+    .tracker-chips-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
 
-      .presenter-tools-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding-top: 8px;
-      }
+    .q-chip {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: #cbd5e1;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
 
-      .presenter-tip {
-        font-size: 0.92rem;
-        color: var(--text-muted);
-        display: flex;
-        align-items: center;
-        gap: 6px;
-      }
+    .q-chip:hover {
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
 
-      .btn-reveal-all {
-        background: linear-gradient(135deg, #f59e0b, #d97706);
-        border: none;
-        color: #fff;
-        font-size: 0.95rem;
-        font-weight: 800;
-        padding: 10px 20px;
-        border-radius: 10px;
-        cursor: pointer;
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4);
-        transition: all 0.2s ease;
-      }
+    .q-chip.answered {
+      background: rgba(16, 185, 129, 0.25);
+      border-color: var(--green);
+      color: #6ee7b7;
+      text-decoration: line-through;
+    }
 
-      .btn-reveal-all:hover {
-        background: linear-gradient(135deg, #fbbf24, #f59e0b);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(245, 158, 11, 0.6);
-      }
+    .q-chip.active {
+      background: linear-gradient(135deg, var(--gold), #ff8c00);
+      border-color: #ffffff;
+      color: #0c1538;
+      box-shadow: 0 0 12px var(--gold);
+      transform: scale(1.15);
+    }
 
-      /* ==========================================================================
-       4. HIỆU ỨNG PHÁO HOA & MODAL CHIẾN THẮNG
+    /* ==========================================================================
+       4. MODAL CHIẾN THẮNG & MODAL XÁC NHẬN RESET
        ========================================================================== */
-      #confettiCanvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        pointer-events: none;
-        z-index: 999;
-      }
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 7, 20, 0.88);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
 
-      .victory-toast {
-        position: fixed;
-        top: 25px;
-        left: 50%;
-        transform: translateX(-50%) translateY(-100px);
-        background: linear-gradient(135deg, #10b981, #059669);
-        color: #fff;
-        font-size: 1.3rem;
-        font-weight: 900;
-        padding: 14px 36px;
-        border-radius: 40px;
-        box-shadow:
-          0 10px 35px rgba(0, 0, 0, 0.5),
-          0 0 30px rgba(16, 185, 129, 0.6);
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        z-index: 1000;
-        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        pointer-events: none;
-      }
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
 
-      .victory-toast.active {
-        transform: translateX(-50%) translateY(0);
-      }
+    .modal-card {
+      background: linear-gradient(145deg, #162456, #0e1738);
+      border: 2px solid var(--gold);
+      border-radius: 24px;
+      padding: 36px 40px;
+      max-width: 580px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 215, 0, 0.35);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      transform: scale(0.9);
+      transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
 
-      @keyframes iconFloat {
-        0%,
-        100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-6px);
-        }
-      }
+    .modal-overlay.active .modal-card {
+      transform: scale(1);
+    }
 
-      @keyframes shine {
-        0% {
-          transform: translateX(-100%) rotate(30deg);
-        }
-        100% {
-          transform: translateX(100%) rotate(30deg);
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Canvas pháo hoa nhẹ ăn mừng -->
-    <canvas id="confettiCanvas"></canvas>
+    .modal-icon {
+      font-size: 4rem;
+      filter: drop-shadow(0 0 20px var(--gold));
+    }
 
-    <!-- Toast chúc mừng hoàn thành câu hỏi -->
-    <div class="victory-toast" id="victoryToast">
-      <span>🎉</span> XUẤT SẮC! ĐÃ GIẢI XONG CÂU HỎI! <span>✨</span>
-    </div>
+    .modal-title {
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--gold);
+      letter-spacing: 1px;
+    }
 
-    <div class="app-container">
-      <!-- ==========================================
-         HEADER
-         ========================================== -->
-      <header class="header">
-        <div class="brand-section">
-          <span class="brand-icon">🎡</span>
-          <div>
-            <h1 class="brand-title">Chiếc Nón Kỳ Diệu</h1>
-            <div class="brand-subtitle">MARKETING XÃ HỘI</div>
-          </div>
-        </div>
+    .modal-desc {
+      font-size: 1.15rem;
+      color: #e2e8f0;
+      line-height: 1.6;
+    }
 
-        <div class="header-center-info">
-          <div class="score-badge">
-            <span>🏆 ĐIỂM:</span>
-            <span class="num" id="scoreDisplay">0</span>
-          </div>
-          <div class="q-counter-badge" id="qCounter">CÂU 1 / 14</div>
-        </div>
+    .modal-btns-row {
+      display: flex;
+      gap: 14px;
+      margin-top: 10px;
+      width: 100%;
+    }
 
-        <div class="header-nav">
-          <button class="btn-nav" id="btnPrev" title="Về câu hỏi trước">⏮️ Câu trước</button>
-          <button class="btn-nav primary" id="btnNext" title="Sang câu hỏi tiếp theo">
-            Câu tiếp ⏭️
-          </button>
-          <button class="btn-nav" id="btnSound" title="Bật/Tắt âm thanh">🔊</button>
-          <button class="btn-nav" id="btnFullscreen" title="Toàn màn hình trình chiếu">📺</button>
-        </div>
-      </header>
+    .modal-btn {
+      flex: 1;
+      padding: 12px 24px;
+      border-radius: 12px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+    }
 
-      <!-- ==========================================
-         MAIN CONTENT GRID: 2 CỘT
-         ========================================== -->
-      <main class="main-grid">
-        <!-- CỘT TRÁI: VÒNG QUAY MAY MẮN (8 Ô CÓ VIỀN BLING BLING) -->
-        <section class="wheel-panel">
-          <div class="wheel-outer-wrapper">
-            <!-- 6 Hạt sao lấp lánh Bling Bling quanh viền nón -->
-            <span class="wheel-sparkle ws-1">✨</span>
-            <span class="wheel-sparkle ws-2">✨</span>
-            <span class="wheel-sparkle ws-3">✨</span>
-            <span class="wheel-sparkle ws-4">✨</span>
-            <span class="wheel-sparkle ws-5">✨</span>
-            <span class="wheel-sparkle ws-6">✨</span>
+    .modal-btn.primary {
+      background: linear-gradient(135deg, var(--gold), #ff8c00);
+      color: #0c1538;
+      box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+    }
 
-            <!-- Kim chỉ nón (Pointer) ở góc 12h -->
-            <div class="wheel-pointer" id="wheelPointer">
-              <svg viewBox="0 0 40 50">
-                <polygon points="5,0 35,0 20,48" fill="#ffd700" stroke="#fff" stroke-width="2" />
-                <circle cx="20" cy="12" r="6" fill="#ff1744" stroke="#fff" stroke-width="1.5" />
-              </svg>
-            </div>
+    .modal-btn.primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(255, 215, 0, 0.6);
+    }
 
-            <!-- Canvas vẽ nón 8 ô -->
-            <canvas id="wheelCanvas" width="460" height="460"></canvas>
+    .modal-btn.secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
 
-            <!-- Nắp tâm kim loại nón -->
-            <div class="wheel-center-cap">⭐</div>
-          </div>
+    .modal-btn.secondary:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
 
-          <div class="spin-btn-container">
-            <button class="btn-spin" id="btnSpin">
-              <span>🎡 QUAY NÓN</span>
-            </button>
-            <div class="spin-status-banner" id="spinStatus">
-              Hãy bấm "QUAY NÓN" để bắt đầu lượt!
-            </div>
-          </div>
-        </section>
+    /* Pháo hoa Canvas */
+    #confettiCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 999;
+    }
+  </style>
+</head>
+<body>
 
-        <!-- CỘT PHẢI: KHUNG HIỂN THỊ CÂU HỎI & VÙNG GIẢI ĐỐ HYBRID -->
-        <section class="content-panel">
-          <div class="question-header">
-            <div class="category-badge diff-easy" id="categoryBadge">🔴 ĐỎ: DỄ (TRẮC NGHIỆM)</div>
-            <div class="difficulty-legend">
-              <span class="diff-item easy">🔴 1-6 Dễ</span>
-              <span style="opacity: 0.4">|</span>
-              <span class="diff-item medium">🟢 7-11 Bình thường</span>
-              <span style="opacity: 0.4">|</span>
-              <span class="diff-item hard">🔥 12-16 Tình huống (Khó)</span>
-            </div>
-            <div class="mode-indicator" id="modeIndicator">🎮 Chế độ: Ô chữ truyền thống</div>
-          </div>
+  <!-- Canvas Pháo hoa chúc mừng -->
+  <canvas id="confettiCanvas"></canvas>
 
-          <!-- Khung nội dung câu hỏi -->
-          <div class="question-box" id="questionText">Câu hỏi sẽ xuất hiện tại đây...</div>
-
-          <!-- VÙNG 1: CHẾ ĐỘ Ô CHỮ TRUYỀN THỐNG (classic) -->
-          <div class="classic-board-area" id="classicArea">
-            <!-- Hàng ô chữ cái -->
-            <div class="word-board" id="wordBoard"></div>
-
-            <!-- Bàn phím chữ cái A-Z và Đ -->
-            <div class="keyboard-box">
-              <div class="keyboard-title-bar">
-                <span>⌨️ Bàn phím chọn chữ cái (Hỗ trợ bấm phím vật lý)</span>
-                <span style="color: var(--cyan)">Space: Quay nón</span>
-              </div>
-              <div class="keyboard-grid" id="keyboardGrid"></div>
-            </div>
-          </div>
-
-          <!-- VÙNG 2: CHẾ ĐỘ ĐIỀN KHUYẾT ĐOẠN VĂN (fill_blank) -->
-          <div class="fill-blank-area" id="fillBlankArea" style="display: none">
-            <div class="template-card" id="templateCard">
-              <!-- Đoạn văn điền khuyết với các nút bấm [ Ô số X: ??? ] -->
-            </div>
-
-            <div class="presenter-tools-row">
-              <div class="presenter-tip">
-                💡
-                <em
-                  >Người thuyết trình: Quay nón -> Nghe người chơi trả lời -> Bấm trực tiếp vào [ Ô
-                  số ??? ] để mở chữ & cộng điểm.</em
-                >
-              </div>
-              <button class="btn-reveal-all" id="btnRevealAll">🔓 Mở toàn bộ đáp án</button>
-            </div>
-          </div>
-        </section>
-      </main>
-    </div>
+  <div class="app-container">
 
     <!-- ==========================================================================
-       5. JAVASCRIPT NGUYÊN BẢN (VANILLA JS & WEB AUDIO API)
+         HEADER TRÊN CÙNG
+         ========================================================================== -->
+    <header class="header">
+      <div class="brand-section">
+        <div class="brand-icon">🎡</div>
+        <div class="brand-text">
+          <h1 class="brand-title">GAMESHOW: MARKETING XÃ HỘI</h1>
+          <span class="brand-subtitle">VÒNG QUAY MAY MẮN & BỐC CÂU HỎI TỰ ĐỘNG</span>
+        </div>
+      </div>
+
+      <div class="header-center-info">
+        <div class="score-badge">
+          <span>🏆 Tổng điểm:</span>
+          <span class="num" id="scoreDisplay">0</span>
+        </div>
+        <div class="q-counter-badge" id="progressBadge">
+          📝 Đã trả lời: 0 / 14
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button class="btn-tool danger" id="btnResetScore" title="Đặt lại điểm số và câu hỏi">
+          <span>🔄 Reset điểm</span>
+        </button>
+        <button class="btn-tool" id="btnSound" title="Bật/Tắt âm thanh">
+          <span>🔊</span>
+        </button>
+        <button class="btn-tool" id="btnFullscreen" title="Toàn màn hình">
+          <span>📺</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ==========================================================================
+         BỐ CỤC CHÍNH 2 CỘT
+         ========================================================================== -->
+    <main class="main-grid">
+
+      <!-- CỘT TRÁI: VÒNG QUAY MAY MẮN -->
+      <section class="wheel-panel">
+
+        <div class="wheel-outer-box">
+          <!-- Hạt sáng lấp lánh quanh viền nón (Bling Bling) -->
+          <span class="wheel-sparkle ws-top-left">✨</span>
+          <span class="wheel-sparkle ws-top-right">✨</span>
+          <span class="wheel-sparkle ws-bottom-left">✨</span>
+          <span class="wheel-sparkle ws-bottom-right">✨</span>
+          <span class="wheel-sparkle ws-left">✨</span>
+          <span class="wheel-sparkle ws-right">✨</span>
+
+          <!-- Kim chỉ ở đỉnh (12h) -->
+          <div class="wheel-pointer" id="wheelPointer">
+            <svg viewBox="0 0 40 50">
+              <polygon points="5,0 35,0 20,48" fill="#ffd700" stroke="#ffffff" stroke-width="2.5"/>
+              <circle cx="20" cy="14" r="6" fill="#ff1744" stroke="#ffffff" stroke-width="1.5"/>
+            </svg>
+          </div>
+
+          <!-- Canvas Vẽ nón -->
+          <canvas id="wheelCanvas" width="500" height="500"></canvas>
+
+          <!-- Trục nón mạ vàng -->
+          <div class="wheel-hub">👑</div>
+        </div>
+
+        <!-- Cụm nút QUAY NÓN & Banner trạng thái -->
+        <div class="wheel-controls">
+          <button class="btn-spin" id="btnSpin">
+            <span>🎡 QUAY NÓN</span>
+          </button>
+          <div class="spin-status-banner" id="spinStatus">
+            Hãy bấm "QUAY NÓN" để bốc câu hỏi!
+          </div>
+        </div>
+
+      </section>
+
+      <!-- CỘT PHẢI: KHUNG HIỂN THỊ CÂU HỎI TỰ ĐỘNG -->
+      <section class="content-panel" id="contentPanel">
+
+        <!-- 1. MÀN HÌNH CHỜ (KHI CHƯA QUAY) -->
+        <div class="idle-card" id="idleCard">
+          <div class="idle-icon">🎡</div>
+          <h2 class="idle-title">SẴN SÀNG BỐC CÂU HỎI</h2>
+          <p class="idle-desc">
+            Bấm nút <strong>"QUAY NÓN"</strong> (hoặc nhấn phím <strong>Spacebar</strong> trên bàn phím) để quay vòng may mắn. Hệ thống sẽ tự động bốc câu hỏi tương ứng với mức điểm quay trúng!
+          </p>
+          <div class="idle-tiers-row">
+            <div class="idle-tier-chip" style="color: #ff9999; border-color: var(--red);">🔴 10 – 30đ: Trắc nghiệm / Thuật ngữ (Dễ)</div>
+            <div class="idle-tier-chip" style="color: #6ee7b7; border-color: var(--green);">🟢 40 – 60đ: Tự luận lý thuyết (Bình thường)</div>
+            <div class="idle-tier-chip" style="color: #fde047; border-color: var(--orange);">🔥 60 – 80đ: Xử lý tình huống (Khó)</div>
+          </div>
+        </div>
+
+        <!-- 2. THẺ HIỂN THỊ CÂU HỎI ĐƯỢC BỐC (ACTIVE QUESTION CARD) -->
+        <div class="active-card" id="activeQuestionCard" style="display: none;">
+          
+          <div class="question-header-row">
+            <div class="category-badge tier-1" id="qCategoryBadge">
+              🏷️ Trắc nghiệm phân đoạn
+            </div>
+            <div class="points-reward-badge" id="qPointsBadge">
+              ⭐ 20 ĐIỂM
+            </div>
+          </div>
+
+          <!-- Nội dung câu hỏi -->
+          <div class="question-box" id="qTextBox">
+            Nội dung câu hỏi sẽ hiển thị tại đây...
+          </div>
+
+          <!-- Khu vực xem đáp án -->
+          <div class="answer-section">
+            <button class="btn-toggle-answer" id="btnToggleAnswer">
+              <span>👁️ Xem Đáp Án</span>
+            </button>
+            <div class="answer-card" id="answerCard">
+              <div class="answer-label">💡 ĐÁP ÁN CHUẨN:</div>
+              <div class="answer-content" id="answerContentText"></div>
+            </div>
+          </div>
+
+          <!-- Cụm chấm điểm nhanh cho người thuyết trình -->
+          <div class="presenter-scoring-box">
+            <div class="scoring-box-title">
+              <span>👨‍🏫 Chấm điểm người chơi:</span>
+            </div>
+            <div class="scoring-btns-row">
+              <button class="btn-score correct" id="btnScoreCorrect">
+                <span>✅ Đúng (+<span id="correctScoreLabel">20</span>đ)</span>
+              </button>
+              <button class="btn-score wrong" id="btnScoreWrong">
+                <span>❌ Sai (0đ)</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- 3. THẺ MẤT LƯỢT (LOSE TURN CARD) -->
+        <div class="lose-card" id="loseTurnCard" style="display: none;">
+          <div class="lose-icon">💥</div>
+          <h2 class="lose-title">MẤT LƯỢT!</h2>
+          <p class="lose-desc">
+            Rất tiếc! Vòng quay đã dừng vào ô MẤT LƯỢT. Hãy bấm <strong>QUAY NÓN</strong> để tiếp tục lượt kế tiếp!
+          </p>
+        </div>
+
+        <!-- 4. TRACKER 14 CÂU HỎI BÊN DƯỚI -->
+        <div class="tracker-section">
+          <div class="tracker-header">
+            <span>Tiến độ câu hỏi (14 câu):</span>
+            <span id="trackerPercent">0%</span>
+          </div>
+          <div class="tracker-chips-grid" id="trackerChips">
+            <!-- 14 chips câu hỏi render động -->
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+
+  <!-- ==========================================================================
+       MODAL THÔNG BÁO CHIẾN THẮNG
        ========================================================================== -->
-    <script>
-      /* ==========================================================================
-       DATA: 14 CÂU HỎI MARKETING XÃ HỘI (HYBRID MODE)
+  <div class="modal-overlay" id="victoryModal">
+    <div class="modal-card">
+      <div class="modal-icon">🎉👑🎊</div>
+      <h2 class="modal-title">XUẤT SẮC! HOÀN THÀNH!</h2>
+      <p class="modal-desc">
+        Bạn đã hoàn thành toàn bộ 14 câu hỏi của Gameshow Marketing Xã Hội!<br>
+        Tổng điểm chung cuộc: <strong style="color: var(--gold); font-size: 1.5rem;" id="modalFinalScore">0</strong> điểm.
+      </p>
+      <div class="modal-btns-row">
+        <button class="modal-btn primary" id="btnModalPlayAgain">
+          🔄 Chơi lại từ đầu
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL XÁC NHẬN RESET ĐIỂM
+       ========================================================================== -->
+  <div class="modal-overlay" id="confirmResetModal">
+    <div class="modal-card">
+      <div class="modal-icon">⚠️</div>
+      <h2 class="modal-title">XÁC NHẬN RESET?</h2>
+      <p class="modal-desc">
+        Hành động này sẽ đặt lại Tổng điểm về 0 và làm mới lại toàn bộ 14 câu hỏi. Bạn có chắc chắn muốn tiếp tục không?
+      </p>
+      <div class="modal-btns-row">
+        <button class="modal-btn secondary" id="btnCancelReset">
+          Hủy bỏ
+        </button>
+        <button class="modal-btn primary" id="btnConfirmReset" style="background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff;">
+          Xác nhận Reset
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       JAVASCRIPT NGUYÊN BẢN (VANILLA JS & WEB AUDIO API)
+       ========================================================================== -->
+  <script>
+    /* ==========================================================================
+       1. NGÂN HÀNG CÂU HỎI (14 CÂU HỎI MARKETING XÃ HỘI)
        ========================================================================== */
-      const questions = [
-        // Nhóm 1: Trắc nghiệm (Chế độ Ô chữ - classic) -> ĐỎ LÀ DỄ (Câu 1 - 6)
-        {
-          type: 'classic',
-          difficulty: 'easy',
-          difficultyName: 'DỄ',
-          color: '#ef4444',
-          category: '🔴 ĐỎ: DỄ (TRẮC NGHIỆM)',
-          question:
-            'Câu 1: Một chương trình muốn chia công chúng dựa trên các đặc điểm như tuổi, giới tính, nghề nghiệp, thu nhập và nơi cư trú. Đây là cách phân đoạn theo tiêu thức nào?',
-          answer: 'NHAN KHAU HOC',
-        },
-        {
-          type: 'classic',
-          difficulty: 'easy',
-          difficultyName: 'DỄ',
-          color: '#ef4444',
-          category: '🔴 ĐỎ: DỄ (TRẮC NGHIỆM)',
-          question:
-            'Câu 2: Một chiến dịch chống bạo lực gia đình chia công chúng thành các nhóm dựa trên thái độ, hành vi và tính cách của họ. Đây là cách phân đoạn theo yếu tố nào?',
-          answer: 'TAM LY',
-        },
-        {
-          type: 'classic',
-          difficulty: 'easy',
-          difficultyName: 'DỄ',
-          color: '#ef4444',
-          category: '🔴 ĐỎ: DỄ (TRẮC NGHIỆM)',
-          question:
-            'Câu 3: Một chương trình bảo vệ môi trường chia công chúng thành nhóm thường xuyên tái chế và nhóm ít quan tâm đến tái chế. Đây là cách phân đoạn theo tiêu thức nào?',
-          answer: 'HANH VI',
-        },
-        {
-          type: 'classic',
-          difficulty: 'easy',
-          difficultyName: 'DỄ',
-          color: '#ef4444',
-          category: '🔴 ĐỎ: DỄ (TRẮC NGHIỆM)',
-          question:
-            'Câu 4: Một chiến dịch chỉ tập trung vào những người đang có nhu cầu thay đổi hành vi thay vì truyền thông cho tất cả mọi người. Nhóm người được lựa chọn này gọi là gì?',
-          answer: 'CONG CHUNG MUC TIEU',
-        },
-        {
-          type: 'classic',
-          difficulty: 'easy',
-          difficultyName: 'DỄ',
-          color: '#ef4444',
-          category: '🔴 ĐỎ: DỄ (TRẮC NGHIỆM)',
-          question:
-            'Câu 5: Một chương trình marketing xã hội muốn xác định rõ mình cần tác động đến ai, thay đổi hành vi nào và sử dụng nguồn lực vào đâu. Hoạt động nào giúp chương trình thực hiện điều đó?',
-          answer: 'PHAN DOAN CONG CHUNG',
-        },
-        {
-          type: 'classic',
-          difficulty: 'easy',
-          difficultyName: 'DỄ',
-          color: '#ef4444',
-          category: '🔴 ĐỎ: DỄ (TRẮC NGHIỆM)',
-          question:
-            "Câu 6: Một chiến dịch đặt mục tiêu 'Trong 3 tháng, giảm tỷ lệ sinh viên sử dụng túi nilon dùng một lần xuống 20%'. Mục tiêu này được xây dựng theo nguyên tắc nào?",
-          answer: 'SMART',
-        },
+    const questionBank = [
+      // Nhóm 1: Trắc nghiệm / Điền thuật ngữ (Mức điểm 10 - 30)
+      {
+        id: 1,
+        points: 20,
+        tier: 1,
+        category: "Trắc nghiệm phân đoạn",
+        question: "Một chương trình muốn chia công chúng dựa trên các đặc điểm như tuổi, giới tính, nghề nghiệp, thu nhập và nơi cư trú. Đây là cách phân đoạn theo tiêu thức nào?",
+        answer: "NHÂN KHẨU HỌC"
+      },
+      {
+        id: 2,
+        points: 20,
+        tier: 1,
+        category: "Trắc nghiệm phân đoạn",
+        question: "Một chiến dịch chống bạo lực gia đình chia công chúng thành các nhóm dựa trên thái độ, hành vi và tính cách của họ. Đây là cách phân đoạn theo yếu tố nào?",
+        answer: "TÂM LÝ"
+      },
+      {
+        id: 3,
+        points: 20,
+        tier: 1,
+        category: "Trắc nghiệm phân đoạn",
+        question: "Một chương trình bảo vệ môi trường chia công chúng thành nhóm thường xuyên tái chế và nhóm ít quan tâm đến tái chế. Đây là cách phân đoạn theo tiêu thức nào?",
+        answer: "HÀNH VI"
+      },
+      {
+        id: 4,
+        points: 30,
+        tier: 1,
+        category: "Thuật ngữ Marketing",
+        question: "Một chiến dịch chỉ tập trung vào những người đang có nhu cầu thay đổi hành vi thay vì truyền thông cho tất cả mọi người. Nhóm người được lựa chọn này gọi là gì?",
+        answer: "CÔNG CHÚNG MỤC TIÊU"
+      },
+      {
+        id: 5,
+        points: 30,
+        tier: 1,
+        category: "Thuật ngữ Marketing",
+        question: "Một chương trình marketing xã hội muốn xác định rõ mình cần tác động đến ai, thay đổi hành vi nào và sử dụng nguồn lực vào đâu. Hoạt động nào giúp chương trình thực hiện điều đó?",
+        answer: "PHÂN ĐOẠN CÔNG CHÚNG"
+      },
+      {
+        id: 6,
+        points: 30,
+        tier: 1,
+        category: "Nguyên tắc thiết lập",
+        question: "Một chiến dịch đặt mục tiêu: 'Trong 3 tháng, giảm tỷ lệ sinh viên sử dụng túi nilon dùng một lần xuống 20%'. Mục tiêu này được xây dựng theo nguyên tắc nào?",
+        answer: "NGUYÊN TẮC SMART"
+      },
 
-        // Nhóm 2: Tự luận (Chế độ Điền khuyết - fill_blank) -> XANH LÀ BÌNH THƯỜNG (Câu 7 - 11)
-        {
-          type: 'fill_blank',
-          difficulty: 'medium',
-          difficultyName: 'BÌNH THƯỜNG',
-          color: '#10b981',
-          category: '🟢 XANH: BÌNH THƯỜNG (TỰ LUẬN)',
-          question:
-            'Câu 7: Vì sao marketing xã hội cần phân đoạn công chúng thay vì sử dụng một thông điệp giống nhau cho tất cả mọi người?',
-          template:
-            'Vì mỗi nhóm công chúng có [nhu cầu, mong muốn], [động cơ, rào cản] và [hành vi] khác nhau. Phân đoạn giúp thiết kế [thông điệp, kênh truyền thông] và cách tác động phù hợp hơn với từng nhóm.',
-        },
-        {
-          type: 'fill_blank',
-          difficulty: 'medium',
-          difficultyName: 'BÌNH THƯỜNG',
-          color: '#10b981',
-          category: '🟢 XANH: BÌNH THƯỜNG (TỰ LUẬN)',
-          question: 'Câu 8: Trình bày 3 giai đoạn của quy trình marketing mục tiêu.',
-          template:
-            '1. [Phân đoạn thị trường].\n2. [Lựa chọn thị trường mục tiêu].\n3. [Định vị và phát triển Marketing hỗn hợp].',
-        },
-        {
-          type: 'fill_blank',
-          difficulty: 'medium',
-          difficultyName: 'BÌNH THƯỜNG',
-          color: '#10b981',
-          category: '🟢 XANH: BÌNH THƯỜNG (TỰ LUẬN)',
-          question: 'Câu 9: Trình bày 4 loại mục tiêu trong marketing xã hội và cho ví dụ.',
-          template:
-            '1. [Nhận thức]: hiểu tác hại thuốc lá.\n2. [Thái độ]: thay đổi thái độ về bình đẳng giới.\n3. [Ý định]: dự định đi hiến máu.\n4. [Hành vi]: ngừng hút thuốc.\n=> Mục tiêu cuối cùng là [thay đổi hành vi].',
-        },
-        {
-          type: 'fill_blank',
-          difficulty: 'medium',
-          difficultyName: 'BÌNH THƯỜNG',
-          color: '#10b981',
-          category: '🟢 XANH: BÌNH THƯỜNG (TỰ LUẬN)',
-          question: 'Câu 10: Trình bày nguyên tắc SMART trong xác lập mục tiêu.',
-          template:
-            'S – [Specific] (Cụ thể)\nM – [Measurable] (Đo lường được)\nA – [Achievable] (Có thể đạt được)\nR – [Realistic] (Thực tế)\nT – [Time-bound] (Có thời hạn)',
-        },
-        {
-          type: 'fill_blank',
-          difficulty: 'medium',
-          difficultyName: 'BÌNH THƯỜNG',
-          color: '#10b981',
-          category: '🟢 XANH: BÌNH THƯỜNG (TỰ LUẬN)',
-          question: 'Câu 11: Trình bày 4 bước của quy trình phân đoạn thị trường.',
-          template:
-            '1. [Xác định các nhóm nhu cầu] liên quan đến sản phẩm/dịch vụ.\n2. [Phân nhóm công chúng mục tiêu] có nhu cầu tương tự.\n3. [Mô tả mỗi nhóm].\n4. [Chọn đoạn hấp dẫn] để hướng đến.',
-        },
+      // Nhóm 2: Tự luận lý thuyết (Mức điểm 40 - 60)
+      {
+        id: 7,
+        points: 40,
+        tier: 2,
+        category: "Tự luận lý thuyết",
+        question: "Vì sao marketing xã hội cần phân đoạn công chúng thay vì sử dụng một thông điệp giống nhau cho tất cả mọi người?",
+        answer: "Vì mỗi nhóm công chúng có nhu cầu, mong muốn, động cơ, rào cản và hành vi khác nhau. Phân đoạn giúp thiết kế thông điệp, kênh truyền thông và cách tác động phù hợp hơn với từng nhóm."
+      },
+      {
+        id: 8,
+        points: 40,
+        tier: 2,
+        category: "Tự luận lý thuyết",
+        question: "Trình bày 3 giai đoạn của quy trình marketing mục tiêu.",
+        answer: "1. Phân đoạn thị trường.\n2. Lựa chọn thị trường mục tiêu.\n3. Định vị và phát triển Marketing hỗn hợp."
+      },
+      {
+        id: 9,
+        points: 50,
+        tier: 2,
+        category: "Tự luận lý thuyết",
+        question: "Trình bày 4 loại mục tiêu trong marketing xã hội và cho ví dụ.",
+        answer: "1. Nhận thức: hiểu tác hại của thuốc lá.\n2. Thái độ: thay đổi thái độ về bình đẳng giới.\n3. Ý định: dự định đi hiến máu.\n4. Hành vi: ngừng hút thuốc.\n=> Mục tiêu cuối cùng cần hướng đến là thay đổi hành vi."
+      },
+      {
+        id: 10,
+        points: 50,
+        tier: 2,
+        category: "Tự luận lý thuyết",
+        question: "Trình bày nguyên tắc SMART trong xác lập mục tiêu.",
+        answer: "S – Specific (Cụ thể)\nM – Measurable (Đo lường được)\nA – Achievable (Có thể đạt được)\nR – Realistic (Thực tế)\nT – Time-bound (Có thời hạn)"
+      },
+      {
+        id: 11,
+        points: 50,
+        tier: 2,
+        category: "Tự luận lý thuyết",
+        question: "Trình bày 4 bước của quy trình phân đoạn thị trường.",
+        answer: "1. Xác định các nhóm nhu cầu liên quan đến sản phẩm/dịch vụ.\n2. Phân nhóm công chúng mục tiêu có nhu cầu tương tự.\n3. Mô tả mỗi nhóm.\n4. Chọn đoạn hoặc các đoạn hấp dẫn để hướng đến."
+      },
 
-        // Nhóm 3: Tình huống (Chế độ Điền khuyết - fill_blank) -> TÌNH HUỐNG LÀ KHÓ (Câu 12 - 16)
-        {
-          type: 'fill_blank',
-          difficulty: 'hard',
-          difficultyName: 'KHÓ (TÌNH HUỐNG)',
-          color: '#f59e0b',
-          category: '🔥 TÌNH HUỐNG: MỨC ĐỘ KHÓ',
-          question:
-            'Câu 12 – Tình huống: Sinh viên năm nhất hay mua đồ uống mang đi, sinh viên năm cuối hay dùng bình cá nhân. Có nên dùng chung 1 thông điệp giảm cốc nhựa cho 2 nhóm không? Vì sao?',
-          template:
-            'Đáp án: [KHÔNG NÊN]. Cần [PHÂN ĐOẠN CÔNG CHÚNG] vì hai nhóm có [hành vi và nhu cầu] khác nhau. Thông điệp và cách tác động nên được [thiết kế phù hợp] với từng nhóm.',
-        },
-        {
-          type: 'fill_blank',
-          difficulty: 'hard',
-          difficultyName: 'KHÓ (TÌNH HUỐNG)',
-          color: '#f59e0b',
-          category: '🔥 TÌNH HUỐNG: MỨC ĐỘ KHÓ',
-          question:
-            'Câu 13 – Tình huống: Người dân đang uống 5 cốc rượu/ngày. Chiến dịch đặt mục tiêu giảm còn 4 cốc/ngày rồi mới giảm tiếp. Cách này phù hợp với nguyên tắc nào?',
-          template:
-            'Đáp án: [THAY ĐỔI TỪNG BƯỚC]. Khi công chúng chưa sẵn sàng thay đổi ngay hành vi cuối cùng, có thể đặt các [mục tiêu nhỏ, khả thi] và tiến dần đến [hành vi mong muốn].',
-        },
-        {
-          type: 'fill_blank',
-          difficulty: 'hard',
-          difficultyName: 'KHÓ (TÌNH HUỐNG)',
-          color: '#f59e0b',
-          category: '🔥 TÌNH HUỐNG: MỨC ĐỘ KHÓ',
-          question:
-            'Câu 16 – Tình huống: Sinh viên biết hiến máu có ích nhưng chưa đăng ký. Cần tập trung vào mục tiêu nào trước khi yêu cầu họ thực hiện hành vi hiến máu?',
-          template:
-            'Đáp án: [MỤC TIÊU VỀ THÁI ĐỘ VÀ Ý ĐỊNH]. Cần tác động để sinh viên có [thái độ tích cực hơn], sau đó [hình thành ý định đăng ký]; từ đó mới thúc đẩy [hành vi hiến máu thực tế].',
-        },
-      ];
+      // Nhóm 3: Tình huống thực tế (Mức điểm 60 - 80)
+      {
+        id: 12,
+        points: 60,
+        tier: 3,
+        category: "Xử lý tình huống",
+        question: "Một trường đại học muốn giảm việc sử dụng cốc nhựa dùng một lần. Nhận thấy sinh viên năm nhất hay mua mang đi, sinh viên năm cuối hay dùng bình cá nhân. Có nên dùng cùng một thông điệp cho 2 nhóm không? Vì sao?",
+        answer: "KHÔNG NÊN. Cần PHÂN ĐOẠN CÔNG CHÚNG vì hai nhóm có hành vi và nhu cầu khác nhau. Thông điệp và cách tác động nên được thiết kế phù hợp với từng nhóm."
+      },
+      {
+        id: 13,
+        points: 70,
+        tier: 3,
+        category: "Xử lý tình huống",
+        question: "Một chiến dịch muốn vận động người dân giảm uống rượu. Khảo sát thấy người dân đang uống 5 cốc/ngày và chưa sẵn sàng bỏ ngay. Chiến dịch đặt mục tiêu giảm còn 4 cốc/ngày rồi mới giảm tiếp. Cách làm này theo nguyên tắc nào?",
+        answer: "NGUYÊN TẮC THAY ĐỔI TỪNG BƯỚC. Khi công chúng chưa sẵn sàng thay đổi ngay hành vi cuối cùng, có thể đặt các mục tiêu nhỏ, khả thi và tiến dần đến hành vi mong muốn."
+      },
+      {
+        id: 14,
+        points: 80,
+        tier: 3,
+        category: "Xử lý tình huống",
+        question: "Sinh viên đã biết hiến máu có ích nhưng vẫn chưa có ý định đăng ký. Chiến dịch cần tập trung vào mục tiêu nào trước khi yêu cầu họ thực hiện hành vi hiến máu?",
+        answer: "MỤC TIÊU VỀ THÁI ĐỘ VÀ Ý ĐỊNH. Cần tác động để sinh viên có thái độ tích cực hơn, sau đó hình thành ý định đăng ký; từ đó mới thúc đẩy hành vi hiến máu thực tế."
+      }
+    ];
 
-      /* ==========================================================================
-       HỆ THỐNG ÂM THANH WEB AUDIO API (TỰ SINH TẦN SỐ OFFLINE 100%)
+    /* ==========================================================================
+       2. HỆ THỐNG ÂM THANH WEB AUDIO API (TỰ SINH OFFLINE 100%)
        ========================================================================== */
-      class SoundEngine {
-        constructor() {
-          this.ctx = null;
-          this.enabled = true;
-        }
+    class SoundEngine {
+      constructor() {
+        this.ctx = null;
+        this.enabled = true;
+      }
 
-        init() {
-          if (!this.ctx) {
-            const AudioCtx = window.AudioContext || window.webkitAudioContext;
-            this.ctx = new AudioCtx();
-          }
-          if (this.ctx && this.ctx.state === 'suspended') {
-            this.ctx.resume();
-          }
+      init() {
+        if (!this.ctx) {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          this.ctx = new AudioCtx();
         }
+        if (this.ctx && this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+      }
 
-        // Tiếng tạch tạch khi nón quay qua chốt
-        tick() {
-          if (!this.enabled) return;
-          this.init();
-          try {
+      // Tiếng tạch tạch nón quay
+      tick() {
+        if (!this.enabled) return;
+        this.init();
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(700 + Math.random() * 90, this.ctx.currentTime);
+          osc.frequency.exponentialRampToValueAtTime(140, this.ctx.currentTime + 0.035);
+          gain.gain.setValueAtTime(0.22, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.035);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.04);
+        } catch(e) {}
+      }
+
+      // Tiếng chuông ting ting khi đúng
+      ting() {
+        if (!this.enabled) return;
+        this.init();
+        try {
+          const freqs = [523.25, 659.25, 783.99, 1046.5];
+          freqs.forEach((f, idx) => {
+            const osc = this.ctx.createOscillator();
+            const gain = this.ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(f, this.ctx.currentTime + idx * 0.08);
+            gain.gain.setValueAtTime(0.28, this.ctx.currentTime + idx * 0.08);
+            gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + idx * 0.08 + 0.6);
+            osc.connect(gain);
+            gain.connect(this.ctx.destination);
+            osc.start(this.ctx.currentTime + idx * 0.08);
+            osc.stop(this.ctx.currentTime + idx * 0.08 + 0.65);
+          });
+        } catch(e) {}
+      }
+
+      // Tiếng buzz khi sai hoặc mất lượt
+      buzz() {
+        if (!this.enabled) return;
+        this.init();
+        try {
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(145, this.ctx.currentTime);
+          osc.frequency.linearRampToValueAtTime(105, this.ctx.currentTime + 0.35);
+          gain.gain.setValueAtTime(0.32, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.35);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start();
+          osc.stop(this.ctx.currentTime + 0.38);
+        } catch(e) {}
+      }
+
+      // Tiếng fanfare chúc mừng hoành tráng
+      fanfare() {
+        if (!this.enabled) return;
+        this.init();
+        try {
+          const notes = [
+            { f: 523.25, t: 0 },
+            { f: 659.25, t: 0.12 },
+            { f: 783.99, t: 0.24 },
+            { f: 1046.5, t: 0.36 },
+            { f: 880,    t: 0.52 },
+            { f: 1046.5, t: 0.68 }
+          ];
+          notes.forEach(c => {
             const osc = this.ctx.createOscillator();
             const gain = this.ctx.createGain();
             osc.type = 'triangle';
-            osc.frequency.setValueAtTime(700 + Math.random() * 80, this.ctx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(140, this.ctx.currentTime + 0.035);
-            gain.gain.setValueAtTime(0.25, this.ctx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.035);
+            osc.frequency.setValueAtTime(c.f, this.ctx.currentTime + c.t);
+            gain.gain.setValueAtTime(0.3, this.ctx.currentTime + c.t);
+            gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + c.t + 0.7);
             osc.connect(gain);
             gain.connect(this.ctx.destination);
-            osc.start();
-            osc.stop(this.ctx.currentTime + 0.04);
-          } catch (e) {}
-        }
-
-        // Tiếng ting trong trẻo khi đoán đúng ô chữ
-        ting() {
-          if (!this.enabled) return;
-          this.init();
-          try {
-            const freqs = [523.25, 659.25, 783.99, 1046.5];
-            freqs.forEach((f, idx) => {
-              const osc = this.ctx.createOscillator();
-              const gain = this.ctx.createGain();
-              osc.type = 'sine';
-              osc.frequency.setValueAtTime(f, this.ctx.currentTime + idx * 0.07);
-              gain.gain.setValueAtTime(0, this.ctx.currentTime + idx * 0.07);
-              gain.gain.linearRampToValueAtTime(0.25, this.ctx.currentTime + idx * 0.07 + 0.02);
-              gain.gain.exponentialRampToValueAtTime(
-                0.001,
-                this.ctx.currentTime + idx * 0.07 + 0.32
-              );
-              osc.connect(gain);
-              gain.connect(this.ctx.destination);
-              osc.start(this.ctx.currentTime + idx * 0.07);
-              osc.stop(this.ctx.currentTime + idx * 0.07 + 0.33);
-            });
-          } catch (e) {}
-        }
-
-        // Tiếng buzz khi đoán sai hoặc quay vào mất lượt
-        buzz() {
-          if (!this.enabled) return;
-          this.init();
-          try {
-            const osc = this.ctx.createOscillator();
-            const gain = this.ctx.createGain();
-            osc.type = 'sawtooth';
-            osc.frequency.setValueAtTime(140, this.ctx.currentTime);
-            osc.frequency.linearRampToValueAtTime(80, this.ctx.currentTime + 0.28);
-            gain.gain.setValueAtTime(0.3, this.ctx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.28);
-            osc.connect(gain);
-            gain.connect(this.ctx.destination);
-            osc.start();
-            osc.stop(this.ctx.currentTime + 0.3);
-          } catch (e) {}
-        }
-
-        // Fanfare ăn mừng hoàn thành câu đố
-        fanfare() {
-          if (!this.enabled) return;
-          this.init();
-          try {
-            const chord = [
-              { f: 523.25, t: 0 },
-              { f: 659.25, t: 0.12 },
-              { f: 783.99, t: 0.24 },
-              { f: 1046.5, t: 0.36 },
-              { f: 1318.5, t: 0.52 },
-            ];
-            chord.forEach((c) => {
-              const osc = this.ctx.createOscillator();
-              const gain = this.ctx.createGain();
-              osc.type = 'triangle';
-              osc.frequency.setValueAtTime(c.f, this.ctx.currentTime + c.t);
-              gain.gain.setValueAtTime(0.35, this.ctx.currentTime + c.t);
-              gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + c.t + 0.6);
-              osc.connect(gain);
-              gain.connect(this.ctx.destination);
-              osc.start(this.ctx.currentTime + c.t);
-              osc.stop(this.ctx.currentTime + c.t + 0.65);
-            });
-          } catch (e) {}
-        }
+            osc.start(this.ctx.currentTime + c.t);
+            osc.stop(this.ctx.currentTime + c.t + 0.75);
+          });
+        } catch(e) {}
       }
+    }
 
-      const sound = new SoundEngine();
+    const sound = new SoundEngine();
 
-      /* ==========================================================================
-       VÒNG QUAY 8 Ô (ĐIỂM SỐ TỪ 10 - 100)
+    /* ==========================================================================
+       3. CẤU HÌNH VÒNG QUAY 12 Ô (ĐIỂM SỐ TỪ 10 - 100, MẤT LƯỢT, MAY MẮN)
        ========================================================================== */
-      const WHEEL_SLICES = [
-        { text: '10', type: 'score', value: 10, color: '#10b981', textColor: '#ffffff' },
-        { text: '30', type: 'score', value: 30, color: '#3b82f6', textColor: '#ffffff' },
-        { text: 'MẤT LƯỢT', type: 'lose', value: 0, color: '#ef4444', textColor: '#ffffff' },
-        { text: '50', type: 'score', value: 50, color: '#8b5cf6', textColor: '#ffffff' },
-        { text: '20', type: 'score', value: 20, color: '#f59e0b', textColor: '#ffffff' },
-        { text: '70', type: 'score', value: 70, color: '#ec4899', textColor: '#ffffff' },
-        { text: 'MAY MẮN', type: 'lucky', value: 50, color: '#06b6d4', textColor: '#ffffff' },
-        { text: '100', type: 'score', value: 100, color: '#eab308', textColor: '#000000' },
-      ];
+    const WHEEL_SLICES = [
+      { text: "20", type: "score", value: 20, color: "#10b981", textColor: "#ffffff" },
+      { text: "50", type: "score", value: 50, color: "#8b5cf6", textColor: "#ffffff" },
+      { text: "MẤT LƯỢT", type: "lose", value: 0, color: "#ef4444", textColor: "#ffffff" },
+      { text: "30", type: "score", value: 30, color: "#3b82f6", textColor: "#ffffff" },
+      { text: "70", type: "score", value: 70, color: "#f97316", textColor: "#ffffff" },
+      { text: "40", type: "score", value: 40, color: "#059669", textColor: "#ffffff" },
+      { text: "MAY MẮN", type: "lucky", value: 50, color: "#06b6d4", textColor: "#ffffff" },
+      { text: "60", type: "score", value: 60, color: "#ec4899", textColor: "#ffffff" },
+      { text: "10", type: "score", value: 10, color: "#eab308", textColor: "#000000" },
+      { text: "80", type: "score", value: 80, color: "#7c3aed", textColor: "#ffffff" },
+      { text: "90", type: "score", value: 90, color: "#f43f5e", textColor: "#ffffff" },
+      { text: "100", type: "score", value: 100, color: "#ffd700", textColor: "#000000" }
+    ];
 
-      const wheelCanvas = document.getElementById('wheelCanvas');
-      const wCtx = wheelCanvas.getContext('2d');
-      const pointerEl = document.getElementById('wheelPointer');
-      const numSlices = WHEEL_SLICES.length;
-      const sliceAngle = (2 * Math.PI) / numSlices;
+    const wheelCanvas = document.getElementById('wheelCanvas');
+    const wCtx = wheelCanvas.getContext('2d');
+    const pointerEl = document.getElementById('wheelPointer');
+    const numSlices = WHEEL_SLICES.length;
+    const sliceAngle = (2 * Math.PI) / numSlices;
 
-      function drawWheel(angle = 0) {
-        const cx = wheelCanvas.width / 2;
-        const cy = wheelCanvas.height / 2;
-        const r = cx - 14;
+    function drawWheel(angle = 0) {
+      const cx = wheelCanvas.width / 2;
+      const cy = wheelCanvas.height / 2;
+      const r = cx - 16;
 
-        wCtx.clearRect(0, 0, wheelCanvas.width, wheelCanvas.height);
+      wCtx.clearRect(0, 0, wheelCanvas.width, wheelCanvas.height);
 
-        // Viền vàng kim loại bên ngoài với 16 đèn LED
+      // Viền kim loại vàng rực rỡ với 16 đèn LED
+      wCtx.save();
+      wCtx.beginPath();
+      wCtx.arc(cx, cy, r + 9, 0, 2 * Math.PI);
+      const ringGrad = wCtx.createLinearGradient(0, 0, wheelCanvas.width, wheelCanvas.height);
+      ringGrad.addColorStop(0, '#ffd700');
+      ringGrad.addColorStop(0.5, '#ffffff');
+      ringGrad.addColorStop(1, '#ff9900');
+      wCtx.strokeStyle = ringGrad;
+      wCtx.lineWidth = 15;
+      wCtx.stroke();
+
+      const ledCount = 16;
+      for (let i = 0; i < ledCount; i++) {
+        const la = (i * 2 * Math.PI) / ledCount;
+        const lx = cx + (r + 9) * Math.cos(la);
+        const ly = cy + (r + 9) * Math.sin(la);
+        wCtx.beginPath();
+        wCtx.arc(lx, ly, 4, 0, 2 * Math.PI);
+        wCtx.fillStyle = (i % 2 === 0) ? '#00f0ff' : '#ffffff';
+        wCtx.shadowColor = '#00f0ff';
+        wCtx.shadowBlur = 6;
+        wCtx.fill();
+      }
+      wCtx.restore();
+
+      // Vẽ từng nan hoa trong 12 ô
+      for (let i = 0; i < numSlices; i++) {
+        const slice = WHEEL_SLICES[i];
+        const start = angle + i * sliceAngle;
+        const end = start + sliceAngle;
+
         wCtx.save();
         wCtx.beginPath();
-        wCtx.arc(cx, cy, r + 8, 0, 2 * Math.PI);
-        const ringGrad = wCtx.createLinearGradient(0, 0, wheelCanvas.width, wheelCanvas.height);
-        ringGrad.addColorStop(0, '#ffd700');
-        ringGrad.addColorStop(0.5, '#ffffff');
-        ringGrad.addColorStop(1, '#ffaa00');
-        wCtx.strokeStyle = ringGrad;
-        wCtx.lineWidth = 14;
+        wCtx.moveTo(cx, cy);
+        wCtx.arc(cx, cy, r, start, end);
+        wCtx.closePath();
+
+        wCtx.fillStyle = slice.color;
+        wCtx.fill();
+
+        wCtx.strokeStyle = 'rgba(255, 255, 255, 0.45)';
+        wCtx.lineWidth = 2;
         wCtx.stroke();
 
-        const ledCount = 16;
-        for (let i = 0; i < ledCount; i++) {
-          const la = (i * 2 * Math.PI) / ledCount;
-          const lx = cx + (r + 8) * Math.cos(la);
-          const ly = cy + (r + 8) * Math.sin(la);
-          wCtx.beginPath();
-          wCtx.arc(lx, ly, 4, 0, 2 * Math.PI);
-          wCtx.fillStyle = i % 2 === 0 ? '#00f0ff' : '#ffffff';
-          wCtx.shadowColor = '#00f0ff';
-          wCtx.shadowBlur = 6;
-          wCtx.fill();
-        }
-        wCtx.restore();
+        // Chữ điểm số / nhãn
+        wCtx.save();
+        wCtx.translate(cx, cy);
+        wCtx.rotate(start + sliceAngle / 2);
+        wCtx.textAlign = 'right';
+        wCtx.textBaseline = 'middle';
+        wCtx.fillStyle = slice.textColor;
 
-        // Vẽ từng ô trong 8 nan hoa
-        for (let i = 0; i < numSlices; i++) {
-          const slice = WHEEL_SLICES[i];
-          const start = angle + i * sliceAngle;
-          const end = start + sliceAngle;
-
-          wCtx.save();
-          wCtx.beginPath();
-          wCtx.moveTo(cx, cy);
-          wCtx.arc(cx, cy, r, start, end);
-          wCtx.closePath();
-
-          wCtx.fillStyle = slice.color;
-          wCtx.fill();
-
-          wCtx.strokeStyle = 'rgba(255, 255, 255, 0.45)';
-          wCtx.lineWidth = 2.5;
-          wCtx.stroke();
-
-          // Chữ điểm số / nhãn
-          wCtx.save();
-          wCtx.translate(cx, cy);
-          wCtx.rotate(start + sliceAngle / 2);
-          wCtx.textAlign = 'right';
-          wCtx.textBaseline = 'middle';
-          wCtx.fillStyle = slice.textColor;
-          wCtx.font = 'bold 24px "Segoe UI", sans-serif';
-          wCtx.shadowColor = 'rgba(0,0,0,0.5)';
-          wCtx.shadowBlur = 4;
+        if (slice.text === 'MẤT LƯỢT' || slice.text === 'MAY MẮN') {
+          wCtx.font = 'bold 18px "Segoe UI", sans-serif';
+          wCtx.fillText(slice.text, r - 26, 0);
+        } else {
+          wCtx.font = '900 25px "Segoe UI", sans-serif';
           wCtx.fillText(slice.text, r - 30, 0);
-
-          // Chốt kim loại ở vành
-          wCtx.beginPath();
-          wCtx.arc(r - 6, 0, 4.5, 0, 2 * Math.PI);
-          wCtx.fillStyle = '#ffffff';
-          wCtx.shadowBlur = 4;
-          wCtx.fill();
-
-          wCtx.restore();
-          wCtx.restore();
-        }
-      }
-
-      /* ==========================================================================
-       TRẠNG THÁI TRÒ CHƠI (GAME STATE)
-       ========================================================================== */
-      const state = {
-        qIndex: 0,
-        totalScore: 0,
-        currentSlice: null,
-        canSpin: true,
-        canSolve: false,
-        isSpinning: false,
-        wheelRotation: 0,
-        revealedLetters: new Set(),
-        guessedLetters: new Set(),
-        revealedBlankIndices: new Set(),
-      };
-
-      /* ==========================================================================
-       LOGIC QUAY NÓN (SPIN ANIMATION)
-       ========================================================================== */
-      const btnSpin = document.getElementById('btnSpin');
-      const spinStatusEl = document.getElementById('spinStatus');
-      let lastTickIndex = -1;
-
-      function spinWheel() {
-        if (!state.canSpin || state.isSpinning) return;
-
-        sound.init();
-        state.isSpinning = true;
-        state.canSpin = false;
-        state.canSolve = false;
-        updateControls();
-
-        setSpinStatus('🎡 Vòng quay đang xoay...', 'spin');
-
-        const minTurns = 5;
-        const extraAngle = Math.random() * 2 * Math.PI;
-        const totalAngle = minTurns * 2 * Math.PI + extraAngle;
-        const duration = 4600;
-        const startTime = performance.now();
-        const startAngle = state.wheelRotation;
-        lastTickIndex = -1;
-
-        function animate(now) {
-          const elapsed = now - startTime;
-          const p = Math.min(elapsed / duration, 1);
-          const easeOut = 1 - Math.pow(1 - p, 3.2);
-
-          state.wheelRotation = startAngle + totalAngle * easeOut;
-
-          // Kim chỉ cố định ở góc 12h (270 độ = 3*PI/2)
-          const pointerAngle = (3 * Math.PI) / 2;
-          const normalizedAngle =
-            (pointerAngle - (state.wheelRotation % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
-          const currentSliceIndex = Math.floor(normalizedAngle / sliceAngle);
-
-          if (currentSliceIndex !== lastTickIndex) {
-            lastTickIndex = currentSliceIndex;
-            sound.tick();
-            pointerEl.classList.add('kick');
-            setTimeout(() => pointerEl.classList.remove('kick'), 40);
-          }
-
-          drawWheel(state.wheelRotation);
-
-          if (p < 1) {
-            requestAnimationFrame(animate);
-          } else {
-            state.isSpinning = false;
-            handleSpinResult(currentSliceIndex);
-          }
         }
 
-        requestAnimationFrame(animate);
+        // Chốt kim loại ở vành ngoài
+        wCtx.beginPath();
+        wCtx.arc(r - 7, 0, 4, 0, 2 * Math.PI);
+        wCtx.fillStyle = '#ffffff';
+        wCtx.shadowColor = 'rgba(0,0,0,0.6)';
+        wCtx.shadowBlur = 4;
+        wCtx.fill();
+
+        wCtx.restore();
+        wCtx.restore();
+      }
+    }
+
+    /* ==========================================================================
+       4. TRẠNG THÁI TRÒ CHƠI & QUẢN LÝ DỮ LIỆU
+       ========================================================================== */
+    const state = {
+      totalScore: 0,
+      answeredQuestionIds: new Set(),
+      currentQuestion: null,
+      currentSpunPoints: 0,
+      isSpinning: false,
+      canSpin: true,
+      wheelRotation: 0
+    };
+
+    /* ==========================================================================
+       5. LOGIC QUAY NÓN (SPIN ANIMATION)
+       ========================================================================== */
+    const btnSpin = document.getElementById('btnSpin');
+    const spinStatusEl = document.getElementById('spinStatus');
+    let lastTickIndex = -1;
+
+    function spinWheel() {
+      if (!state.canSpin || state.isSpinning) return;
+
+      // Kiểm tra nếu đã hết câu hỏi
+      if (state.answeredQuestionIds.size >= questionBank.length) {
+        triggerVictory();
+        return;
       }
 
-      function handleSpinResult(sliceIndex) {
-        const slice = WHEEL_SLICES[sliceIndex];
-        state.currentSlice = slice;
+      sound.init();
+      state.isSpinning = true;
+      state.canSpin = false;
+      updateControls();
 
-        const currentQ = questions[state.qIndex];
+      // Ẩn các thẻ bên phải về trạng thái quay
+      hideAllCards();
+      setSpinStatus("🎡 Vòng quay đang xoay...", "spin");
 
-        if (slice.type === 'lose') {
-          sound.buzz();
-          setSpinStatus('💥 Rất tiếc! MẤT LƯỢT! Hãy bấm quay lại.', 'lose');
-          state.canSpin = true;
-          state.canSolve = false;
-        } else if (slice.type === 'lucky') {
-          sound.ting();
-          setSpinStatus('🍀 Ô MAY MẮN! (+50 điểm thưởng). Mời chọn ô giải đố!', 'highlight');
-          state.totalScore += 50;
-          updateScoreDisplay();
-          state.canSpin = false;
-          state.canSolve = true;
+      const minTurns = 5;
+      const extraAngle = Math.random() * 2 * Math.PI;
+      const totalAngle = minTurns * 2 * Math.PI + extraAngle;
+      const duration = 4600;
+      const startTime = performance.now();
+      const startAngle = state.wheelRotation;
+      lastTickIndex = -1;
+
+      function animate(now) {
+        const elapsed = now - startTime;
+        const p = Math.min(elapsed / duration, 1);
+        const easeOut = 1 - Math.pow(1 - p, 3.2);
+
+        state.wheelRotation = startAngle + totalAngle * easeOut;
+
+        // Kim chỉ ở đỉnh 12h (góc 3*PI/2 = 270 độ)
+        const pointerAngle = (3 * Math.PI) / 2;
+        const normalizedAngle = (pointerAngle - (state.wheelRotation % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+        const currentSliceIndex = Math.floor(normalizedAngle / sliceAngle);
+
+        if (currentSliceIndex !== lastTickIndex) {
+          lastTickIndex = currentSliceIndex;
+          sound.tick();
+          pointerEl.classList.add('kick');
+          setTimeout(() => pointerEl.classList.remove('kick'), 45);
+        }
+
+        drawWheel(state.wheelRotation);
+
+        if (p < 1) {
+          requestAnimationFrame(animate);
         } else {
-          sound.ting();
-          setSpinStatus(`⭐ Bạn quay vào ô ${slice.text} ĐIỂM! Hãy giải đố.`, 'highlight');
-          state.canSpin = false;
-          state.canSolve = true;
+          state.isSpinning = false;
+          handleSpinResult(currentSliceIndex);
         }
-
-        updateControls();
       }
 
-      function setSpinStatus(msg, type = 'normal') {
-        spinStatusEl.textContent = msg;
-        spinStatusEl.className = 'spin-status-banner';
-        if (type === 'highlight') spinStatusEl.classList.add('highlight');
-      }
+      requestAnimationFrame(animate);
+    }
 
-      /* ==========================================================================
-       ĐIỀU HƯỚNG CÂU HỎI & NẠP DỮ LIỆU HYBRID
-       ========================================================================== */
-      const categoryBadgeEl = document.getElementById('categoryBadge');
-      const modeIndicatorEl = document.getElementById('modeIndicator');
-      const questionTextEl = document.getElementById('questionText');
-      const qCounterEl = document.getElementById('qCounter');
-      const scoreDisplayEl = document.getElementById('scoreDisplay');
-      const classicAreaEl = document.getElementById('classicArea');
-      const fillBlankAreaEl = document.getElementById('fillBlankArea');
-      const wordBoardEl = document.getElementById('wordBoard');
-      const keyboardGridEl = document.getElementById('keyboardGrid');
-      const templateCardEl = document.getElementById('templateCard');
-      const btnPrev = document.getElementById('btnPrev');
-      const btnNext = document.getElementById('btnNext');
+    /* Xử lý khi vòng quay dừng lại */
+    function handleSpinResult(sliceIndex) {
+      const slice = WHEEL_SLICES[sliceIndex];
 
-      function loadQuestion(index) {
-        if (index < 0) index = 0;
-        if (index >= questions.length) index = questions.length - 1;
-
-        state.qIndex = index;
-        const q = questions[index];
-
+      if (slice.type === 'lose') {
+        // VÀO Ô MẤT LƯỢT
+        sound.buzz();
+        setSpinStatus("💥 Rất tiếc! MẤT LƯỢT! Hãy bấm quay lại.", "lose");
+        showLoseCard();
         state.canSpin = true;
-        state.canSolve = false;
-        state.currentSlice = null;
-        state.revealedLetters.clear();
-        state.guessedLetters.clear();
-        state.revealedBlankIndices.clear();
-
-        qCounterEl.textContent = `CÂU ${index + 1} / ${questions.length}`;
-        categoryBadgeEl.textContent = q.category;
-        categoryBadgeEl.className = `category-badge diff-${q.difficulty}`;
-        questionTextEl.textContent = q.question;
-        questionTextEl.style.borderLeftColor = q.color;
-        questionTextEl.style.boxShadow = `inset 0 2px 6px rgba(0, 0, 0, 0.4), -4px 0 18px ${q.color}44`;
-
-        btnPrev.disabled = index === 0;
-        btnNext.disabled = index === questions.length - 1;
-
-        setSpinStatus(`Bắt đầu Câu ${index + 1} [${q.difficultyName}]! Hãy bấm "QUAY NÓN".`);
-
-        if (q.type === 'classic') {
-          modeIndicatorEl.textContent = '🎮 Chế độ: Ô chữ truyền thống';
-          classicAreaEl.style.display = 'flex';
-          fillBlankAreaEl.style.display = 'none';
-          renderClassicBoard(q.answer);
-          renderKeyboard();
-        } else {
-          modeIndicatorEl.textContent = '📝 Chế độ: Điền khuyết đoạn văn';
-          classicAreaEl.style.display = 'none';
-          fillBlankAreaEl.style.display = 'flex';
-          renderFillBlankTemplate(q.template);
-        }
-
         updateControls();
-      }
-
-      /* ==========================================================================
-       XỬ LÝ LOẠI 1: Ô CHỮ TRUYỀN THỐNG (CLASSIC)
-       ========================================================================== */
-      function renderClassicBoard(answer) {
-        wordBoardEl.innerHTML = '';
-        const words = answer.split(' ');
-
-        words.forEach((word) => {
-          const group = document.createElement('div');
-          group.className = 'word-group';
-
-          for (let char of word) {
-            const tile = document.createElement('div');
-            tile.className = 'tile';
-            tile.dataset.char = char;
-
-            if (char === '-' || char === ',' || char === '.') {
-              tile.classList.add('special');
-              tile.innerHTML = `
-              <div class="tile-inner">
-                <div class="tile-face tile-front" style="color: #fff; font-size: 2rem;">${char}</div>
-              </div>
-            `;
-            } else {
-              tile.innerHTML = `
-              <div class="tile-inner">
-                <div class="tile-face tile-front"></div>
-                <div class="tile-face tile-back">${char}</div>
-              </div>
-            `;
-            }
-            group.appendChild(tile);
-          }
-
-          wordBoardEl.appendChild(group);
-        });
-      }
-
-      function renderKeyboard() {
-        keyboardGridEl.innerHTML = '';
-        // Bao gồm đầy đủ các chữ cái tiếng Việt thường dùng và Đ
-        const keys = [
-          'A',
-          'B',
-          'C',
-          'D',
-          'Đ',
-          'E',
-          'G',
-          'H',
-          'I',
-          'K',
-          'L',
-          'M',
-          'N',
-          'O',
-          'P',
-          'Q',
-          'R',
-          'S',
-          'T',
-          'U',
-          'V',
-          'X',
-          'Y',
-        ];
-
-        keys.forEach((k) => {
-          const btn = document.createElement('button');
-          btn.className = 'key-btn';
-          btn.textContent = k;
-          btn.id = `key-${k}`;
-          btn.addEventListener('click', () => handleGuessLetter(k));
-          keyboardGridEl.appendChild(btn);
-        });
-      }
-
-      function handleGuessLetter(letter) {
-        letter = letter.toUpperCase();
-        if (!state.canSolve || state.guessedLetters.has(letter)) return;
-
-        state.guessedLetters.add(letter);
-        const q = questions[state.qIndex];
-        const answer = q.answer;
-        const keyBtn = document.getElementById(`key-${letter}`);
-
-        let count = 0;
-        for (let c of answer) {
-          if (c === letter) count++;
-        }
-
-        if (count > 0) {
-          // ĐOÁN ĐÚNG!
-          state.revealedLetters.add(letter);
-          if (keyBtn) {
-            keyBtn.classList.add('correct');
-            keyBtn.classList.remove('ready');
-          }
-
-          revealLetterTiles(letter);
-          sound.ting();
-
-          const sliceVal =
-            state.currentSlice && state.currentSlice.value ? state.currentSlice.value : 30;
-          const earned = sliceVal * count;
-          state.totalScore += earned;
-
-          updateScoreDisplay(true);
-          setSpinStatus(
-            `Chính xác! Có ${count} chữ "${letter}"! (+${earned.toLocaleString()} điểm).`,
-            'highlight'
-          );
-
-          if (checkClassicFinished(answer)) {
-            triggerVictory();
-          }
-        } else {
-          // ĐOÁN SAI
-          if (keyBtn) {
-            keyBtn.classList.add('wrong');
-            keyBtn.classList.remove('ready');
-          }
-          sound.buzz();
-          setSpinStatus(`Rất tiếc! Không có chữ "${letter}" trong ô chữ. Hãy quay tiếp!`);
-        }
-
-        state.canSpin = true;
-        state.canSolve = false;
-        state.currentSlice = null;
-        updateControls();
-      }
-
-      function revealLetterTiles(letter) {
-        const tiles = wordBoardEl.querySelectorAll(`.tile[data-char="${letter}"]`);
-        tiles.forEach((t, idx) => {
-          setTimeout(() => t.classList.add('revealed'), idx * 120);
-        });
-      }
-
-      function checkClassicFinished(answer) {
-        for (let c of answer) {
-          if (c >= 'A' && c <= 'Z' && c !== ' ') {
-            if (!state.revealedLetters.has(c)) return false;
-          }
-          if (c === 'Đ' && !state.revealedLetters.has('Đ')) return false;
-        }
-        return true;
-      }
-
-      /* ==========================================================================
-       XỬ LÝ LOẠI 2: ĐIỀN KHUYẾT ĐOẠN VĂN (FILL_BLANK)
-       ========================================================================== */
-      function renderFillBlankTemplate(template) {
-        templateCardEl.innerHTML = '';
-        state.currentBlanksData = [];
-
-        // Phân tách chuỗi theo cú pháp [từ khóa]
-        const regex = /\[(.*?)\]/g;
-        let lastIndex = 0;
-        let match;
-        let blankCounter = 0;
-
-        while ((match = regex.exec(template)) !== null) {
-          // Đoạn chữ thường phía trước ngoặc vuông
-          if (match.index > lastIndex) {
-            const plainText = template.substring(lastIndex, match.index);
-            templateCardEl.appendChild(document.createTextNode(plainText));
-          }
-
-          const keyword = match[1];
-          const blankIndex = blankCounter;
-          state.currentBlanksData.push(keyword);
-
-          // Tạo nút bấm cho ô điền khuyết
-          const btnSlot = document.createElement('button');
-          btnSlot.className = 'blank-slot hidden-slot';
-          btnSlot.id = `blank-slot-${blankIndex}`;
-          btnSlot.innerHTML = `🔒 [ Ô số ${blankIndex + 1}: ??? ]`;
-          btnSlot.title = 'Click để lật mở đáp án ô này';
-
-          btnSlot.addEventListener('click', () => {
-            revealSingleBlank(blankIndex, true);
-          });
-
-          templateCardEl.appendChild(btnSlot);
-
-          lastIndex = regex.lastIndex;
-          blankCounter++;
-        }
-
-        // Đoạn chữ còn lại phía sau
-        if (lastIndex < template.length) {
-          templateCardEl.appendChild(document.createTextNode(template.substring(lastIndex)));
-        }
-      }
-
-      // Mở một ô điền khuyết
-      function revealSingleBlank(index, isInteractiveClick = false) {
-        if (state.revealedBlankIndices.has(index)) return;
-
-        state.revealedBlankIndices.add(index);
-        const slotBtn = document.getElementById(`blank-slot-${index}`);
-        if (!slotBtn) return;
-
-        const keyword = state.currentBlanksData[index];
-        slotBtn.className = 'blank-slot revealed-slot';
-        slotBtn.innerHTML = `✨ <strong>[ ${keyword} ]</strong>`;
-
-        sound.ting();
-
-        // Nếu người thuyết trình mở trong lượt chơi có điểm quay nón
-        if (isInteractiveClick) {
-          const earned =
-            state.currentSlice && state.currentSlice.value ? state.currentSlice.value : 30;
-          state.totalScore += earned;
-          updateScoreDisplay(true);
-          setSpinStatus(
-            `Đã mở ô ${index + 1}: "${keyword}"! (+${earned.toLocaleString()} điểm).`,
-            'highlight'
-          );
-
-          state.canSpin = true;
-          state.canSolve = false;
-          state.currentSlice = null;
-          updateControls();
-        }
-
-        // Kiểm tra nếu đã mở hết toàn bộ các ô
-        if (state.revealedBlankIndices.size === state.currentBlanksData.length) {
-          triggerVictory();
-        }
-      }
-
-      // Nút "Mở toàn bộ đáp án" cho người thuyết trình
-      document.getElementById('btnRevealAll').addEventListener('click', () => {
-        if (!state.currentBlanksData) return;
-        state.currentBlanksData.forEach((_, idx) => {
-          revealSingleBlank(idx, false);
-        });
-        setSpinStatus('Đã mở toàn bộ đáp án của câu hỏi!');
-        state.canSpin = true;
-        state.canSolve = false;
-        state.currentSlice = null;
-        updateControls();
-      });
-
-      /* ==========================================================================
-       CẬP NHẬT GIAO DIỆN & TRẠNG THÁI NÚT BẤM
-       ========================================================================== */
-      function updateControls() {
-        btnSpin.disabled = !state.canSpin || state.isSpinning;
-
-        // Cập nhật bàn phím chế độ classic
-        const keys = keyboardGridEl.querySelectorAll('.key-btn');
-        keys.forEach((btn) => {
-          const letter = btn.textContent;
-          const already = state.guessedLetters.has(letter);
-          if (already) {
-            btn.disabled = true;
-          } else {
-            btn.disabled = !state.canSolve;
-            if (state.canSolve) {
-              btn.classList.add('ready');
-            } else {
-              btn.classList.remove('ready');
-            }
-          }
-        });
-      }
-
-      function updateScoreDisplay(withBump = false) {
-        scoreDisplayEl.textContent = state.totalScore.toLocaleString();
-        if (withBump) {
-          scoreDisplayEl.classList.add('bump');
-          setTimeout(() => scoreDisplayEl.classList.remove('bump'), 300);
-        }
-      }
-
-      function triggerVictory() {
+      } else if (slice.type === 'lucky') {
+        // VÀO Ô MAY MẮN
         sound.fanfare();
-        launchConfetti();
-        const toast = document.getElementById('victoryToast');
-        toast.classList.add('active');
-        setTimeout(() => toast.classList.remove('active'), 3500);
-      }
+        state.totalScore += 50;
+        updateScoreDisplay(true);
+        setSpinStatus("🍀 Ô MAY MẮN! (+50 điểm thưởng). Đang bốc câu hỏi...", "highlight");
 
-      /* ==========================================================================
-       HIỆU ỨNG PHÁO HOA NHẸ (CANVAS CONFETTI)
+        // Bốc 1 câu hỏi ngẫu nhiên chưa trả lời để chơi tiếp
+        setTimeout(() => {
+          pickAndDisplayQuestion(50);
+        }, 1200);
+      } else {
+        // VÀO Ô ĐIỂM SỐ
+        sound.ting();
+        state.currentSpunPoints = slice.value;
+        setSpinStatus(`⭐ Quay vào ô ${slice.value} ĐIỂM! Đang bốc câu hỏi...`, "highlight");
+
+        setTimeout(() => {
+          pickAndDisplayQuestion(slice.value);
+        }, 500);
+      }
+    }
+
+    function setSpinStatus(msg, type = "normal") {
+      spinStatusEl.textContent = msg;
+      spinStatusEl.className = "spin-status-banner";
+      if (type === 'highlight') spinStatusEl.classList.add('highlight');
+      if (type === 'lose') spinStatusEl.classList.add('lose');
+    }
+
+    /* ==========================================================================
+       6. THUẬT TOÁN TỰ ĐỘNG BỐC CÂU HỎI THÔNG MINH
        ========================================================================== */
-      const confCanvas = document.getElementById('confettiCanvas');
-      const confCtx = confCanvas.getContext('2d');
-      let particles = [];
-      let confAnimId = null;
+    function pickAndDisplayQuestion(targetPoints) {
+      // 1. Lọc các câu hỏi chưa trả lời
+      const availableQuestions = questionBank.filter(q => !state.answeredQuestionIds.has(q.id));
 
-      function resizeConfetti() {
-        confCanvas.width = window.innerWidth;
-        confCanvas.height = window.innerHeight;
-      }
-      window.addEventListener('resize', resizeConfetti);
-      resizeConfetti();
-
-      function launchConfetti() {
-        particles = [];
-        const colors = ['#ffd700', '#00f0ff', '#ff007f', '#00e676', '#ff8c00', '#ffffff'];
-        for (let i = 0; i < 150; i++) {
-          particles.push({
-            x: confCanvas.width / 2,
-            y: confCanvas.height / 2,
-            w: Math.random() * 10 + 6,
-            h: Math.random() * 6 + 4,
-            color: colors[Math.floor(Math.random() * colors.length)],
-            vx: (Math.random() - 0.5) * 22,
-            vy: (Math.random() - 0.6) * 20,
-            rot: Math.random() * 360,
-            rotSpd: (Math.random() - 0.5) * 10,
-            gravity: 0.35,
-            opacity: 1,
-          });
-        }
-        if (confAnimId) cancelAnimationFrame(confAnimId);
-        animateConfetti();
+      if (availableQuestions.length === 0) {
+        triggerVictory();
+        return;
       }
 
-      function animateConfetti() {
-        confCtx.clearRect(0, 0, confCanvas.width, confCanvas.height);
-        let count = 0;
+      // 2. Tìm câu hỏi có mức điểm trùng khớp chính xác
+      let matchingQuestions = availableQuestions.filter(q => q.points === targetPoints);
 
-        particles.forEach((p) => {
-          p.x += p.vx;
-          p.y += p.vy;
-          p.vy += p.gravity;
-          p.vx *= 0.98;
-          p.rot += p.rotSpd;
-          p.opacity -= 0.006;
+      let selectedQuestion = null;
 
-          if (p.opacity > 0 && p.y < confCanvas.height) {
-            count++;
-            confCtx.save();
-            confCtx.translate(p.x, p.y);
-            confCtx.rotate((p.rot * Math.PI) / 180);
-            confCtx.globalAlpha = Math.max(p.opacity, 0);
-            confCtx.fillStyle = p.color;
-            confCtx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
-            confCtx.restore();
+      if (matchingQuestions.length > 0) {
+        // Chọn ngẫu nhiên 1 câu trùng điểm
+        selectedQuestion = matchingQuestions[Math.floor(Math.random() * matchingQuestions.length)];
+      } else {
+        // Nếu không có câu trùng điểm (ví dụ quay 10, 90, 100 hoặc mức điểm đó đã hết):
+        // Tìm câu hỏi có mức điểm gần nhất
+        availableQuestions.sort((a, b) => Math.abs(a.points - targetPoints) - Math.abs(b.points - targetPoints));
+        selectedQuestion = availableQuestions[0];
+      }
+
+      state.currentQuestion = selectedQuestion;
+      // Điểm số người chơi nhận được chính là điểm quay được từ nón (hoặc tối thiểu bằng điểm câu hỏi)
+      state.activeRewardPoints = Math.max(targetPoints, selectedQuestion.points);
+
+      displayActiveQuestion(selectedQuestion, state.activeRewardPoints);
+    }
+
+    /* ==========================================================================
+       7. HIỂN THỊ CÂU HỎI LÊN KHUNG BÊN PHẢI
+       ========================================================================== */
+    const idleCardEl = document.getElementById('idleCard');
+    const activeQuestionCardEl = document.getElementById('activeQuestionCard');
+    const loseTurnCardEl = document.getElementById('loseTurnCard');
+    const qCategoryBadgeEl = document.getElementById('qCategoryBadge');
+    const qPointsBadgeEl = document.getElementById('qPointsBadge');
+    const qTextBoxEl = document.getElementById('qTextBox');
+    const answerCardEl = document.getElementById('answerCard');
+    const answerContentTextEl = document.getElementById('answerContentText');
+    const btnToggleAnswerEl = document.getElementById('btnToggleAnswer');
+    const correctScoreLabelEl = document.getElementById('correctScoreLabel');
+    const btnScoreCorrectEl = document.getElementById('btnScoreCorrect');
+    const btnScoreWrongEl = document.getElementById('btnScoreWrong');
+
+    function hideAllCards() {
+      idleCardEl.style.display = 'none';
+      activeQuestionCardEl.style.display = 'none';
+      loseTurnCardEl.style.display = 'none';
+    }
+
+    function showLoseCard() {
+      hideAllCards();
+      loseTurnCardEl.style.display = 'flex';
+    }
+
+    function displayActiveQuestion(q, rewardPoints) {
+      hideAllCards();
+      activeQuestionCardEl.style.display = 'flex';
+
+      // Nhãn thể loại & Màu phân tầng
+      qCategoryBadgeEl.textContent = `🏷️ ${q.category}`;
+      qCategoryBadgeEl.className = `category-badge tier-${q.tier}`;
+
+      // Điểm thưởng lượt quay này
+      qPointsBadgeEl.innerHTML = `⭐ ${rewardPoints} ĐIỂM`;
+      correctScoreLabelEl.textContent = rewardPoints;
+
+      // Nội dung câu hỏi
+      qTextBoxEl.textContent = q.question;
+      if (q.tier === 1) {
+        qTextBoxEl.style.borderLeftColor = '#ef4444';
+        qTextBoxEl.style.boxShadow = 'inset 0 2px 6px rgba(0,0,0,0.4), -4px 0 18px rgba(239,68,68,0.35)';
+      } else if (q.tier === 2) {
+        qTextBoxEl.style.borderLeftColor = '#10b981';
+        qTextBoxEl.style.boxShadow = 'inset 0 2px 6px rgba(0,0,0,0.4), -4px 0 18px rgba(16,185,129,0.35)';
+      } else {
+        qTextBoxEl.style.borderLeftColor = '#f59e0b';
+        qTextBoxEl.style.boxShadow = 'inset 0 2px 6px rgba(0,0,0,0.4), -4px 0 18px rgba(245,158,11,0.35)';
+      }
+
+      // Khởi tạo trạng thái đáp án bị ẩn ban đầu
+      answerCardEl.classList.remove('revealed');
+      btnToggleAnswerEl.innerHTML = `<span>👁️ Xem Đáp Án</span>`;
+      answerContentTextEl.textContent = q.answer;
+
+      // Cập nhật tracker highlight câu hỏi hiện tại
+      updateTrackerUI();
+
+      setSpinStatus(`Mời trả lời câu hỏi! Điểm thưởng: +${rewardPoints}đ.`);
+    }
+
+    // Nút Bật/Tắt xem đáp án
+    btnToggleAnswerEl.addEventListener('click', () => {
+      const isRevealed = answerCardEl.classList.contains('revealed');
+      if (isRevealed) {
+        answerCardEl.classList.remove('revealed');
+        btnToggleAnswerEl.innerHTML = `<span>👁️ Xem Đáp Án</span>`;
+      } else {
+        answerCardEl.classList.add('revealed');
+        btnToggleAnswerEl.innerHTML = `<span>🙈 Ẩn Đáp Án</span>`;
+      }
+    });
+
+    /* ==========================================================================
+       8. CHẤM ĐIỂM NHANH CHO NGƯỜI THUYẾT TRÌNH (ĐÚNG / SAI)
+       ========================================================================== */
+    btnScoreCorrectEl.addEventListener('click', () => {
+      if (!state.currentQuestion) return;
+
+      const pts = state.activeRewardPoints || state.currentQuestion.points;
+      state.totalScore += pts;
+      updateScoreDisplay(true);
+      sound.ting();
+
+      // Đánh dấu đã trả lời câu này
+      state.answeredQuestionIds.add(state.currentQuestion.id);
+      updateTrackerUI();
+
+      setSpinStatus(`🎉 CHÍNH XÁC! (+${pts} điểm). Hãy bấm "QUAY NÓN" để tiếp tục!`, "highlight");
+
+      // Reset câu hỏi hiện tại và cho phép quay tiếp
+      finishQuestionTurn();
+    });
+
+    btnScoreWrongEl.addEventListener('click', () => {
+      if (!state.currentQuestion) return;
+
+      sound.buzz();
+
+      // Đánh dấu đã xử lý câu này (không cộng điểm)
+      state.answeredQuestionIds.add(state.currentQuestion.id);
+      updateTrackerUI();
+
+      setSpinStatus(`❌ RẤT TIẾC! (0 điểm). Hãy bấm "QUAY NÓN" để chuyển câu tiếp theo!`);
+
+      // Reset câu hỏi hiện tại và cho phép quay tiếp
+      finishQuestionTurn();
+    });
+
+    function finishQuestionTurn() {
+      state.currentQuestion = null;
+      state.canSpin = true;
+      updateControls();
+
+      // Kiểm tra nếu đã hoàn thành tất cả 14 câu
+      if (state.answeredQuestionIds.size >= questionBank.length) {
+        setTimeout(triggerVictory, 1000);
+      }
+    }
+
+    /* ==========================================================================
+       9. TRACKER TIẾN ĐỘ 14 CÂU HỎI
+       ========================================================================== */
+    const trackerChipsEl = document.getElementById('trackerChips');
+    const trackerPercentEl = document.getElementById('trackerPercent');
+    const progressBadgeEl = document.getElementById('progressBadge');
+
+    function renderTrackerChips() {
+      trackerChipsEl.innerHTML = '';
+      questionBank.forEach((q, idx) => {
+        const chip = document.createElement('div');
+        chip.className = 'q-chip';
+        chip.id = `qchip-${q.id}`;
+        chip.textContent = q.id;
+        chip.title = `Câu ${q.id} (${q.points}đ) - ${q.category}`;
+
+        // Người thuyết trình có thể click chọn trực tiếp câu hỏi nếu cần
+        chip.addEventListener('click', () => {
+          if (state.isSpinning) return;
+          if (state.answeredQuestionIds.has(q.id)) {
+            // Cho phép xem lại câu đã trả lời
+            state.currentQuestion = q;
+            state.activeRewardPoints = q.points;
+            displayActiveQuestion(q, q.points);
+          } else {
+            state.currentQuestion = q;
+            state.activeRewardPoints = q.points;
+            displayActiveQuestion(q, q.points);
+            state.canSpin = false;
+            updateControls();
           }
         });
 
-        if (count > 0) {
-          confAnimId = requestAnimationFrame(animateConfetti);
-        } else {
-          confCtx.clearRect(0, 0, confCanvas.width, confCanvas.height);
+        trackerChipsEl.appendChild(chip);
+      });
+      updateTrackerUI();
+    }
+
+    function updateTrackerUI() {
+      const answeredCount = state.answeredQuestionIds.size;
+      const totalCount = questionBank.length;
+      const pct = Math.round((answeredCount / totalCount) * 100);
+
+      progressBadgeEl.textContent = `📝 Đã trả lời: ${answeredCount} / ${totalCount}`;
+      trackerPercentEl.textContent = `${pct}%`;
+
+      questionBank.forEach(q => {
+        const chip = document.getElementById(`qchip-${q.id}`);
+        if (!chip) return;
+
+        chip.className = 'q-chip';
+        if (state.answeredQuestionIds.has(q.id)) {
+          chip.classList.add('answered');
+        }
+        if (state.currentQuestion && state.currentQuestion.id === q.id) {
+          chip.classList.add('active');
+        }
+      });
+    }
+
+    /* ==========================================================================
+       10. CẬP NHẬT ĐIỂM SỐ & GIAO DIỆN
+       ========================================================================== */
+    const scoreDisplayEl = document.getElementById('scoreDisplay');
+
+    function updateScoreDisplay(withBump = false) {
+      scoreDisplayEl.textContent = state.totalScore.toLocaleString();
+      if (withBump) {
+        scoreDisplayEl.classList.add('bump');
+        setTimeout(() => scoreDisplayEl.classList.remove('bump'), 350);
+      }
+    }
+
+    function updateControls() {
+      btnSpin.disabled = !state.canSpin || state.isSpinning;
+    }
+
+    /* ==========================================================================
+       11. MODAL CHIẾN THẮNG & CONFETTI
+       ========================================================================== */
+    const victoryModalEl = document.getElementById('victoryModal');
+    const modalFinalScoreEl = document.getElementById('modalFinalScore');
+    const btnModalPlayAgainEl = document.getElementById('btnModalPlayAgain');
+
+    function triggerVictory() {
+      sound.fanfare();
+      launchConfetti();
+      modalFinalScoreEl.textContent = state.totalScore.toLocaleString();
+      victoryModalEl.classList.add('active');
+    }
+
+    btnModalPlayAgainEl.addEventListener('click', () => {
+      victoryModalEl.classList.remove('active');
+      resetGameData();
+    });
+
+    /* ==========================================================================
+       12. CHỨC NĂNG RESET ĐIỂM & BÀN CHƠI
+       ========================================================================== */
+    const btnResetScoreEl = document.getElementById('btnResetScore');
+    const confirmResetModalEl = document.getElementById('confirmResetModal');
+    const btnCancelResetEl = document.getElementById('btnCancelReset');
+    const btnConfirmResetEl = document.getElementById('btnConfirmReset');
+
+    btnResetScoreEl.addEventListener('click', () => {
+      confirmResetModalEl.classList.add('active');
+    });
+
+    btnCancelResetEl.addEventListener('click', () => {
+      confirmResetModalEl.classList.remove('active');
+    });
+
+    btnConfirmResetEl.addEventListener('click', () => {
+      confirmResetModalEl.classList.remove('active');
+      resetGameData();
+    });
+
+    function resetGameData() {
+      state.totalScore = 0;
+      state.answeredQuestionIds.clear();
+      state.currentQuestion = null;
+      state.currentSpunPoints = 0;
+      state.canSpin = true;
+      state.isSpinning = false;
+
+      updateScoreDisplay();
+      updateTrackerUI();
+      hideAllCards();
+      idleCardEl.style.display = 'flex';
+      setSpinStatus('Đã đặt lại dữ liệu! Hãy bấm "QUAY NÓN" để bắt đầu.');
+      updateControls();
+    }
+
+    /* ==========================================================================
+       13. HIỆU ỨNG PHÁO HOA NHẸ (CANVAS CONFETTI)
+       ========================================================================== */
+    const confCanvas = document.getElementById('confettiCanvas');
+    const confCtx = confCanvas.getContext('2d');
+    let particles = [];
+    let confAnimId = null;
+
+    function resizeConfetti() {
+      confCanvas.width = window.innerWidth;
+      confCanvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeConfetti);
+    resizeConfetti();
+
+    function launchConfetti() {
+      particles = [];
+      const colors = ['#ffd700', '#00f0ff', '#ff007f', '#00e676', '#ff8c00', '#ffffff'];
+      for (let i = 0; i < 160; i++) {
+        particles.push({
+          x: confCanvas.width / 2,
+          y: confCanvas.height / 2,
+          w: Math.random() * 10 + 6,
+          h: Math.random() * 6 + 4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          vx: (Math.random() - 0.5) * 24,
+          vy: (Math.random() - 0.6) * 22,
+          rot: Math.random() * 360,
+          rotSpd: (Math.random() - 0.5) * 12,
+          gravity: 0.35,
+          opacity: 1
+        });
+      }
+      if (confAnimId) cancelAnimationFrame(confAnimId);
+      animateConfetti();
+    }
+
+    function animateConfetti() {
+      confCtx.clearRect(0, 0, confCanvas.width, confCanvas.height);
+      let count = 0;
+
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += p.gravity;
+        p.vx *= 0.98;
+        p.rot += p.rotSpd;
+        p.opacity -= 0.006;
+
+        if (p.opacity > 0 && p.y < confCanvas.height) {
+          count++;
+          confCtx.save();
+          confCtx.translate(p.x, p.y);
+          confCtx.rotate((p.rot * Math.PI) / 180);
+          confCtx.globalAlpha = Math.max(p.opacity, 0);
+          confCtx.fillStyle = p.color;
+          confCtx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+          confCtx.restore();
+        }
+      });
+
+      if (count > 0) {
+        confAnimId = requestAnimationFrame(animateConfetti);
+      } else {
+        confCtx.clearRect(0, 0, confCanvas.width, confCanvas.height);
+      }
+    }
+
+    /* ==========================================================================
+       14. LẮNG NGHE SỰ KIỆN & PHÍM TẮT BÀN PHÍM VẬT LÝ
+       ========================================================================== */
+    btnSpin.addEventListener('click', spinWheel);
+
+    // Phím tắt bàn phím vật lý máy tính
+    window.addEventListener('keydown', (e) => {
+      // Phím Space: Quay nón
+      if (e.code === 'Space') {
+        e.preventDefault();
+        if (state.canSpin && !state.isSpinning) {
+          spinWheel();
         }
       }
+    });
 
-      /* ==========================================================================
-       LẮNG NGHE SỰ KIỆN TƯƠNG TÁC & BÀN PHÍM VẬT LÝ
+    // Nút Bật/Tắt âm thanh
+    const btnSound = document.getElementById('btnSound');
+    btnSound.addEventListener('click', () => {
+      sound.enabled = !sound.enabled;
+      if (sound.enabled) {
+        sound.init();
+        btnSound.textContent = '🔊';
+      } else {
+        btnSound.textContent = '🔇';
+      }
+    });
+
+    // Nút Toàn màn hình
+    const btnFullscreen = document.getElementById('btnFullscreen');
+    btnFullscreen.addEventListener('click', () => {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+        btnFullscreen.textContent = '🗗';
+      } else {
+        document.exitFullscreen().catch(() => {});
+        btnFullscreen.textContent = '📺';
+      }
+    });
+
+    document.addEventListener('fullscreenchange', () => {
+      if (!document.fullscreenElement) {
+        btnFullscreen.textContent = '📺';
+      }
+    });
+
+    /* ==========================================================================
+       15. KHỞI CHẠY LẦN ĐẦU KHI TRANG TẢI XONG
        ========================================================================== */
-      btnSpin.addEventListener('click', spinWheel);
-
-      btnPrev.addEventListener('click', () => {
-        loadQuestion(state.qIndex - 1);
-      });
-
-      btnNext.addEventListener('click', () => {
-        loadQuestion(state.qIndex + 1);
-      });
-
-      // Bàn phím vật lý máy tính (Rất tiện lợi cho người thuyết trình)
-      window.addEventListener('keydown', (e) => {
-        // Space: Quay nón
-        if (e.code === 'Space') {
-          e.preventDefault();
-          if (state.canSpin && !state.isSpinning) {
-            spinWheel();
-          }
-          return;
-        }
-
-        // Phím chữ cái A-Z và Đ (Tự động gỡ dấu tiếng Việt từ Unikey/EVKey)
-        let key = e.key
-          .normalize('NFD')
-          .replace(/[\u0300-\u036f]/g, '')
-          .toUpperCase();
-        if (key === 'Đ') key = 'Đ';
-
-        if (state.canSolve && questions[state.qIndex].type === 'classic') {
-          if ((key >= 'A' && key <= 'Z') || key === 'Đ') {
-            handleGuessLetter(key);
-          }
-        }
-      });
-
-      // Nút Bật/Tắt âm thanh
-      const btnSound = document.getElementById('btnSound');
-      btnSound.addEventListener('click', () => {
-        sound.enabled = !sound.enabled;
-        if (sound.enabled) {
-          sound.init();
-          btnSound.textContent = '🔊';
-        } else {
-          btnSound.textContent = '🔇';
-        }
-      });
-
-      // Nút Toàn màn hình (F11 / Fullscreen)
-      const btnFullscreen = document.getElementById('btnFullscreen');
-      btnFullscreen.addEventListener('click', () => {
-        if (!document.fullscreenElement) {
-          document.documentElement.requestFullscreen().catch(() => {});
-          btnFullscreen.textContent = '🗗';
-        } else {
-          document.exitFullscreen().catch(() => {});
-          btnFullscreen.textContent = '📺';
-        }
-      });
-
-      document.addEventListener('fullscreenchange', () => {
-        if (!document.fullscreenElement) {
-          btnFullscreen.textContent = '📺';
-        }
-      });
-
-      /* ==========================================================================
-       KHỞI CHẠY LẦN ĐẦU KHI TRANG TẢI XONG
-       ========================================================================== */
-      window.addEventListener('DOMContentLoaded', () => {
-        drawWheel(0);
-        loadQuestion(0);
-      });
-    </script>
-  </body>
+    window.addEventListener('DOMContentLoaded', () => {
+      drawWheel(0);
+      renderTrackerChips();
+      updateControls();
+    });
+  </script>
+</body>
 </html>
